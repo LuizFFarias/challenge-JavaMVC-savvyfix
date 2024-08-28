@@ -39,7 +39,7 @@ public class Produto {
     @Column(name = "PRECO_FIXO", nullable = false)
     private Float precoFixo;
 
-    @Column(name = "IMG_PROD", nullable = false)
-    private String imgProduto;
+//    @Column(name = "IMG_PROD", nullable = false)
+//    private String imgProduto;
 
 }

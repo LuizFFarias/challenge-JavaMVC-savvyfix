@@ -10,5 +10,11 @@ public interface ServiceDTO <Entity, Request, Response>{
 
     Collection<Entity> findAll();
 
+    Entity findById(Long id);
+
+    Entity save(Entity entity);
+
+
+
 
 }

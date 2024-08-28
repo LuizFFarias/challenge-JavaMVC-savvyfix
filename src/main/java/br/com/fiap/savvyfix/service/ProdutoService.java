@@ -44,6 +44,10 @@ public class ProdutoService implements ServiceDTO<Produto, ProdutoRequest, Produ
 			return repo.findAll();
 		}
 
+		@Override
 		public Produto findById(Long id) {return repo.findById(id).orElse(null);}
+
+		@Override
+		public Produto save(Produto produto) {return repo.save(produto);}
 
 }
