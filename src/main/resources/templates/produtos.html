@@ -29,8 +29,8 @@
                 </ul>
                 <div class="card-body border border-secondary rounded-bottom">
                     <a href="" class="btn btn-outline-primary">Comprar</a>
-                    <a asp-action="Editar" asp-route-id="@item.IdProd" class="btn btn-outline-warning">Editar</a>
-                    <a asp-action="Excluir" asp-route-id="@item.IdProd" class="btn btn-outline-danger">Excluir</a>
+                    <a th:href="@{/produtos/editar_produto/{idProd}(idProd = ${item.id}) }" class="btn btn-outline-warning">Editar</a>
+                    <a th:href="@{/produtos/deletar_produto/{idProd}(idProd = ${item.id}) }" class="btn btn-outline-danger">Excluir</a>
 
                 </div>
             </div>

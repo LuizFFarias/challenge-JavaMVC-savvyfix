@@ -50,4 +50,6 @@ public class ProdutoService implements ServiceDTO<Produto, ProdutoRequest, Produ
 		@Override
 		public Produto save(Produto produto) {return repo.save(produto);}
 
+		public void deleteById(Long id) {repo.deleteById(id);}
+
 }
