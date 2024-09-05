@@ -1,0 +1,97 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <title>Adicionar Produto</title>
+</head>
+
+<body>
+
+
+<!-- Realizar cadastro de um novo usuário no banco -->
+
+<h1 class="display-5 text-center pb-4 pt-3" >Cadastre-se Aqui!</h1>
+<form class="card-body mx-auto" style="width: 40rem;" th:object="${cliente}" action="/clientes/insere_cliente" method="post">
+    <div class="mb-3">
+        <label class="form-label" for="cpf">CPF: </label>
+        <input type="number" class="form-control border border-secondary" th:field="*{cpf}" th:errorclass="is-invalid" id="cpf"  aria-describedby="cpf" required>
+        <div id="cpfHelp" class="form-text">Digite apenas os números</div>
+        <div class="invalid-feedback" th:errors="*{cpf}"></div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label font-monospace" for="nomeCliente">Nome:</label>
+        <input type="text" th:field="*{nome}" th:errorclass="is-invalid" class="form-control border border-secondary" id="nomeCliente" required>
+        <div class="invalid-feedback" th:errors="*{nome}"></div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label font-monospace" for="SenhaClie">Senha:</label>
+        <input type="password" class="form-control border border-secondary" th:field="*{senha}" th:errorclass="is-invalid" id="SenhaClie" required>
+        <input type="hidden" class="form-control" th:field="*{senha}" id="hiddenSenhaClie" required>
+        <div class="invalid-feedback" th:errors="*{senha}"></div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label font-monospace" for="CepEndereco">CEP:</label>
+        <input type="text" th:field="*{endereco.cep}" th:errorclass="is-invalid" class="form-control border border-secondary" id="CepEndereco" required>
+        <div class="invalid-feedback" th:errors="*{endereco.cep}"></div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label font-monospace" for="RuaEndereco">Rua:</label>
+        <input type="text" th:field="*{endereco.rua}" th:errorclass="is-invalid" class="form-control border border-secondary" id="RuaEndereco" required>
+        <div class="invalid-feedback" th:errors="*{endereco.rua}"></div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label font-monospace" for="NumEndereco">Número:</label>
+        <input type="number" th:field="*{endereco.numero}" th:errorclass="is-invalid" class="form-control border border-secondary" id="NumEndereco" required>
+        <div class="invalid-feedback" th:errors="*{endereco.numero}"></div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label font-monospace" for="NumEndereco">Bairro:</label>
+        <input type="text" th:field="*{endereco.bairro}" th:errorclass="is-invalid" class="form-control border border-secondary" id="NumEndereco" required>
+        <div class="invalid-feedback" th:errors="*{endereco.bairro}"></div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label font-monospace" for="NumEndereco">Cidade:</label>
+        <input type="text" th:field="*{endereco.cidade}" th:errorclass="is-invalid" class="form-control border border-secondary" id="NumEndereco" required>
+        <div class="invalid-feedback" th:errors="*{endereco.cidade}"></div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label font-monospace" for="NumEndereco">Estado:</label>
+        <input type="text" th:field="*{endereco.estado}" th:errorclass="is-invalid" class="form-control border border-secondary" id="NumEndereco" required>
+        <div class="invalid-feedback" th:errors="*{endereco.estado}"></div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label font-monospace" for="NumEndereco">País:</label>
+        <input type="text" th:field="*{endereco.pais}" th:errorclass="is-invalid" class="form-control border border-secondary" id="NumEndereco" required>
+        <div class="invalid-feedback" th:errors="*{endereco.pais}"></div>
+    </div>
+    <button type="submit" class="btn btn-primary">Cadastrar</button>
+    <a href="/" class="btn btn-danger">Voltar</a>
+</form>
+<script>
+    document.getElementById('CepEndereco').oninput = function() {
+        var cepInput = this.value.replace(/\D/g, '');
+        if (cepInput.length !== 8) {
+            this.setCustomValidity('O CEP deve ter exatamente 8 números');
+        } else {
+            this.setCustomValidity('');
+        }
+    };
+    document.getElementById('cpf').oninput = function() {
+        var cpfInput = this.value.replace(/\D/g, '');
+        if (cpfInput.length !== 11) {
+            this.setCustomValidity('O CPF deve ter exatamente 11 números');
+        } else {
+            this.setCustomValidity('');
+        }
+    };
+</script>
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+</body>
+</html>
+

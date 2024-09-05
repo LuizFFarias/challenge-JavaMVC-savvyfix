@@ -1,0 +1,57 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+  <title>Login</title>
+</head>
+
+<body>
+
+
+<!-- Realizar cadastro de um novo usuário no banco -->
+
+<h1 class="display-5 text-center pb-4 pt-3" >Faça seu login Aqui!</h1>
+<form class="card-body mx-auto" style="width: 40rem;" th:object="${cliente}" action="/clientes/logar_cliente" method="post">
+  <div class="mb-3">
+    <label class="form-label" for="cpf">CPF: </label>
+    <input type="number" class="form-control border border-secondary" th:field="*{cpf}" th:errorclass="is-invalid" id="cpf"  aria-describedby="cpf" required>
+    <div id="cpfHelp" class="form-text">Digite apenas os números</div>
+    <div class="invalid-feedback" th:errors="*{cpf}"></div>
+  </div>
+  <div class="mb-3">
+    <label class="form-label font-monospace" for="SenhaClie">Senha:</label>
+    <input type="password" class="form-control border border-secondary" th:field="*{senha}" th:errorclass="is-invalid" id="SenhaClie" required>
+    <input type="hidden" class="form-control" th:field="*{senha}" id="hiddenSenhaClie" required>
+    <div class="invalid-feedback" th:if="${erro}" th:text="${erro}"></div>
+  </div>
+  <button type="submit" class="btn btn-primary">Login</button>
+  <a href="/" class="btn btn-danger">Voltar</a>
+</form>
+<script>
+  document.getElementById('CepEndereco').oninput = function() {
+    var cepInput = this.value.replace(/\D/g, '');
+    if (cepInput.length !== 8) {
+      this.setCustomValidity('O CEP deve ter exatamente 8 números');
+    } else {
+      this.setCustomValidity('');
+    }
+  };
+  document.getElementById('cpf').oninput = function() {
+    var cpfInput = this.value.replace(/\D/g, '');
+    if (cpfInput.length !== 11) {
+      this.setCustomValidity('O CPF deve ter exatamente 11 números');
+    } else {
+      this.setCustomValidity('');
+    }
+  };
+</script>
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+</body>
+</html>
+

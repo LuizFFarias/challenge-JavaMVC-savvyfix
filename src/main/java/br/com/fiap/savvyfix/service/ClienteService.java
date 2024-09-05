@@ -58,4 +58,6 @@ public class ClienteService implements  ServiceDTO<Cliente, ClienteRequest, Clie
     public Cliente findById(Long id) {
         return  repo.findById(id).orElse(null);
     }
+
+    public Cliente findByCpf(String cpf) {return repo.findByCpf(cpf);}
 }
