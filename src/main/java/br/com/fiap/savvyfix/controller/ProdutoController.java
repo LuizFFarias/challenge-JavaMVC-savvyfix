@@ -54,6 +54,7 @@ public class ProdutoController {
 	private ModelAndView save(@Valid Produto produto, BindingResult bd) {
 		if (bd.hasErrors()){
 			ModelAndView mv = new ModelAndView("adiciona_produto");
+			mv.addObject("produto", produto);
 			return mv;
 
 		} else {
@@ -96,7 +97,7 @@ public class ProdutoController {
 			Produto prod = service.findById(id);
 
 			if (prod == null) {
-				ModelAndView mv = new ModelAndView("editar_produto");
+				ModelAndView mv = new ModelAndView("edita_produto");
 				mv.addObject("produto", produto);
 				return mv;
 			} else {

@@ -1,5 +1,6 @@
 package br.com.fiap.savvyfix.controller;
 
+import br.com.fiap.savvyfix.dto.request.ClienteRequest;
 import br.com.fiap.savvyfix.model.Cliente;
 import br.com.fiap.savvyfix.model.Endereco;
 import br.com.fiap.savvyfix.service.ClienteService;
@@ -34,26 +35,19 @@ public class ClienteController {
     private ModelAndView save(@Valid Cliente cliente, BindingResult bd){
         if(bd.hasErrors()){
             ModelAndView mv = new ModelAndView("cadastro_cliente");
+            mv.addObject("cliente", cliente);
+            System.out.println("Erro no cpf");
             return mv;
         } else{
-            Cliente clie = new Cliente();
-            Endereco endereco = new Endereco();
-
-            endereco.setRua( cliente.getEndereco().getRua());
-            endereco.setNumero( cliente.getEndereco().getNumero());
-            endereco.setCep( cliente.getEndereco().getCep());
-            endereco.setBairro( cliente.getEndereco().getBairro());
-            endereco.setCidade( cliente.getEndereco().getCidade());
-            endereco.setEstado( cliente.getEndereco().getEstado());
-            endereco.setPais( cliente.getEndereco().getPais());
+            Endereco endereco = cliente.getEndereco();
+            Cliente clie = Cliente.builder()
+                    .cpf(cliente.getCpf())
+                    .senha(cliente.getSenha())
+                    .nome(cliente.getNome())
+                    .endereco(endereco)
+                    .build();
 
             serviceEndereco.save(endereco);
-
-            clie.setNome(cliente.getNome());
-            clie.setCpf(cliente.getCpf());
-            clie.setSenha(cliente.getSenha());
-            clie.setEndereco(endereco);
-
             service.save(clie);
 
             return new ModelAndView("redirect:/");

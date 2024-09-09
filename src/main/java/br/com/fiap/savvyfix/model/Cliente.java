@@ -13,10 +13,12 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.br.CPF;
 
 @Data
 @NoArgsConstructor
@@ -36,12 +38,15 @@ public class Cliente {
     private Long id;
 
     @Column(name = "NM_CLIE", nullable = false, length = 50)
+    @NotNull(message = "O nome é obrigatório")
     private String nome;
 
+    @CPF(message = "CPF inválido")
     @Column(name = "CPF_CLIE", nullable = false, length = 11)
     private String cpf;
 
     @Column(name = "SENHA_CLIE", nullable = false, length = 50 )
+    @NotNull(message = "A senha é obrigatória")
     private  String senha;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
