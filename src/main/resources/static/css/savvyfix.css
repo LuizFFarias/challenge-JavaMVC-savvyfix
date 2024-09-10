@@ -54,11 +54,14 @@
     margin-right: 28%;
 }
 
-.teste{
+.produto{
     background-color: #407e01;
     margin-bottom: 8ch;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 100%; /* Ajustar a largura máxima */
+    flex: 1 1 300px; /* Ajustar a largura mínima dos cards */
+    /* Adicione outras propriedades de estilo conforme necessário */
 }
 
 .produtos{
@@ -92,5 +95,22 @@
     .formulario{
         max-width: 100%;
         padding: 0.5rem;
+    }
+}
+
+@media (max-width: 775px) {
+    .produto{
+        width: 80%;
+        padding-left: 15%;
+        padding-right: 15%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10ch;
+    }
+    .produtos{
+        width: 80%;
+    }
+    .btn-comprar{
+        float: right;
     }
 }

@@ -25,7 +25,7 @@
     <!-- Busca dos produtos -->
     <div class="d-flex justify-content-center">
         <div class="mb-3 produtos">
-            <div class="row g-0 teste" th:each="item: ${produtos}" >
+            <div class="row g-0 produto" th:each="item: ${produtos}" >
                 <div class="col-md-4">
                     <img th:src="${item.getImgProduto()}" class="rounded-start pt-3 pb-3" alt="...">
                 </div>
