@@ -1,5 +1,6 @@
 package br.com.fiap.savvyfix.controller;
 
+import br.com.fiap.savvyfix.dto.request.ProdutoRequest;
 import br.com.fiap.savvyfix.model.Produto;
 import br.com.fiap.savvyfix.service.ProdutoService;
 import jakarta.validation.Valid;
@@ -7,13 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/produtos", produces = "application/json")
@@ -51,21 +55,26 @@ public class ProdutoController {
 
 
 	@PostMapping("/insere_produto")
-	private ModelAndView save(@Valid Produto produto, BindingResult bd) {
+	private ModelAndView save(@Valid ProdutoRequest produtoRequest, BindingResult bd) {
 		if (bd.hasErrors()){
+			bd.getAllErrors().forEach(error -> {
+				System.out.println("Error: " + error.getDefaultMessage());
+			});
 			ModelAndView mv = new ModelAndView("adiciona_produto");
+			var produto = service.toEntity(produtoRequest);
 			mv.addObject("produto", produto);
 			return mv;
 
 		} else {
-			Produto prod = new Produto();
-			prod.setNome(produto.getNome());
-			prod.setDescricao(produto.getDescricao());
-			prod.setMarca(produto.getMarca());
-			prod.setPrecoFixo(produto.getPrecoFixo());
+//			Produto prod = new Produto();
+//			prod.setNome(produto.getNome());
+//			prod.setDescricao(produto.getDescricao());
+//			prod.setMarca(produto.getMarca());
+//			prod.setPrecoFixo(produto.getPrecoFixo());
+//			service.save(prod);
 
-			service.save(prod);
-
+			var produto = service.toEntity(produtoRequest);
+			service.save(produto);
 			return new ModelAndView("redirect:/produtos");
 
 		}

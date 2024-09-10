@@ -15,10 +15,13 @@
 
 <h1 class="display-5 text-center pb-4">Adicionar Produtos</h1>
 <form class="card-body mx-auto" style="width: 40rem;" th:object="${produto}" action="/produtos/insere_produto" method="post">
+  <div class="invalid-feedback" th:each="m : ${msg}">
+    <span th:text="${m}" ></span>
+  </div>
   <div class="mb-3">
     <label class="form-label font-monospace" for="nome">Nome: </label>
-    <input type="text" class="form-control border border-secondary" th:field="*{nome}" th:errorclass="is-invalid" id="nome" required>
-    <div class="invalid-feedback" th:errors="*{nome}"></div>
+    <input type="text" class="form-control border border-secondary" th:field="*{nome}" id="nome" required>
+    <div class="invalid-feedback" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
   </div>
   <div class="mb-3">
     <label class="form-label font-monospace" for="marca">Marca:</label>

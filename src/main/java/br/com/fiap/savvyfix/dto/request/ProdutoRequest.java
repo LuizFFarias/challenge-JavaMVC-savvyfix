@@ -1,6 +1,7 @@
 package br.com.fiap.savvyfix.dto.request;
 
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
 public record ProdutoRequest (
@@ -17,5 +18,6 @@ public record ProdutoRequest (
         String marca,
 
         @NotNull(message = "O preço do produto é obrigatório")
+        @Positive(message = "O preço deve ser positivo")
         Float precoFixo
 ) {}

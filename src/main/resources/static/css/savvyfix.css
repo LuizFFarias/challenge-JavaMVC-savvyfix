@@ -1,0 +1,54 @@
+.cabecalho {
+    background-color: #407e01;
+    height: auto;
+    width: 100%;
+    max-height: 12ch;
+}
+
+.img-cabecalho{
+    height: auto;
+    width: auto;
+    max-height: 80px;
+    max-width: 80px;
+}
+
+.titulo {
+    background-color: #d6cbb5;
+    width: auto;
+    max-width: 45ch;
+    border-radius: 20px;
+}
+
+.formulario{
+    background-color: #d9d9d9;
+    width: auto;
+    height: auto;
+    max-width: 80ch;
+    margin-right: 10%;
+    margin-left: 10%;
+}
+
+.btn-confirmar{
+    background-color: #93de98;
+    margin-right: 20px;
+}
+
+.rodape{
+    background-color: #407e01;
+    height: auto;
+    width: 100%;
+    max-height: 60ch;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20ch;
+}
+.rodape img{
+    height: auto;
+    width: auto;
+    max-width: 60ch;
+    max-height: 60ch;
+    padding-top: 5ch;
+    padding-bottom: 5ch;
+
+}
