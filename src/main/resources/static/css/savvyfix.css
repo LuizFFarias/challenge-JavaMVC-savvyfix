@@ -54,6 +54,40 @@
     margin-right: 28%;
 }
 
+.teste{
+    background-color: #407e01;
+    margin-bottom: 8ch;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.produtos{
+    width: 100%;
+    max-width: 1000px;
+    margin: 20px auto;
+
+}
+
+.produtos img{
+    max-height: 270px;
+    max-width: 270px;
+    height: 100%;
+    width: 100%;
+    padding-left: 5%;
+    object-fit: cover;
+
+}
+
+.card-title, .card-text {
+    color: white;
+    padding-left: 7%;
+
+}
+
+.btn-comprar{
+    background-color: #d6cbb5;
+}
+
 @media (max-width: 680px) {
     .formulario{
         max-width: 100%;
