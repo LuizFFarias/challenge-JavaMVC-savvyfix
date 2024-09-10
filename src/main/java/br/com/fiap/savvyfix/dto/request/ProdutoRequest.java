@@ -19,5 +19,8 @@ public record ProdutoRequest (
 
         @NotNull(message = "O preço do produto é obrigatório")
         @Positive(message = "O preço deve ser positivo")
-        Float precoFixo
+        Float precoFixo,
+
+        @NotNull(message = "A imagem deve é obrigatória")
+        String imgProduto
 ) {}

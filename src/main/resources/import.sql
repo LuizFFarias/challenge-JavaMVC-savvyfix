@@ -1,2 +1,2 @@
-insert into Produto (id_prod, nm_prod, desc_prod, marca_prod, preco_fixo) values (0, 'Tênis de corrida', 'Tênis para esportes', 'Nike', 123)
+insert into Produto (id_prod, nm_prod, desc_prod, marca_prod, preco_fixo, img_prod) values (0, 'Tênis de corrida', 'Tênis para esportes', 'Nike', 123, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMsjLk8oo3P9SrlNNsY0BbVmrpIHZQ_1Yr7g&s')
 --     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMsjLk8oo3P9SrlNNsY0BbVmrpIHZQ_1Yr7g&s'

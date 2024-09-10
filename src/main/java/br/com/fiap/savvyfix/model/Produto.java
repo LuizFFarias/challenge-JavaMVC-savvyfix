@@ -50,7 +50,7 @@ public class Produto {
     @Positive(message = "O preço deve ser positivo")
     private Float precoFixo;
 
-//    @Column(name = "IMG_PROD", nullable = false)
-//    private String imgProduto;
+    @Column(name = "IMG_PROD", nullable = false)
+    private String imgProduto;
 
 }

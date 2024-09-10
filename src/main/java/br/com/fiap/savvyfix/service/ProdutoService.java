@@ -27,6 +27,7 @@ public class ProdutoService implements ServiceDTO<Produto, ProdutoRequest, Produ
 	                .descricao( produtoRequest.descricao() )
 	                .marca( produtoRequest.marca() )
 	                .precoFixo( produtoRequest.precoFixo())
+					.imgProduto(produtoRequest.imgProduto())
 	                .build();
 	    }
 
