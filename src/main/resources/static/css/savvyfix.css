@@ -35,7 +35,7 @@
     background-color: #407e01;
     height: auto;
     width: 100%;
-    max-height: 60ch;
+    max-height: 16ch;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -43,11 +43,15 @@
 .rodape img{
     height: auto;
     width: auto;
-    max-width: 60ch;
-    max-height: 60ch;
+    max-width: 30ch;
+    max-height: 30ch;
     padding-top: 5ch;
     padding-bottom: 5ch;
 
+}
+
+.cadastre-se{
+    margin-right: 28%;
 }
 
 @media (max-width: 680px) {

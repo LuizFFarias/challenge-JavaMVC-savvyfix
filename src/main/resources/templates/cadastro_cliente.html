@@ -17,12 +17,12 @@
 
 <!-- Realizar cadastro de um novo usuário no banco -->
 <nav class="navbar navbar-expand-lg bg-body-tertiary cabecalho pb-3">
-    <img src="/images/ic_savvyfix.png" class="img-cabecalho mx-auto">
+    <img src="/images/ic_savvyfix.png" href="/" class="img-cabecalho mx-auto">
 </nav>
 <div class="ronded-pill titulo mx-auto mt-5">
     <h1 class="display-5 text-center pb-4 pt-4" >CADASTRO</h1>
 </div>
-<form class="card-body mx-auto formulario mt-5 mb-5" style="width: 40rem;" th:object="${cliente}" action="/clientes/insere_cliente" method="post">
+<form class="card-body mx-auto formulario mt-5" style="width: 40rem;" th:object="${cliente}" action="/clientes/insere_cliente" method="post">
     <div class="mb-3">
         <label class="form-label font-monospace" for="nomeCliente">Nome completo</label>
         <input type="text" th:field="*{nome}" th:errorclass="is-invalid" class="form-control border border-secondary" id="nomeCliente" required>
@@ -78,6 +78,9 @@
         <button type="submit" class="btn btn-confirmar">Cadastrar</button>
         <a href="/" class="btn btn-danger ml-auto float-end">Voltar</a>
 </form>
+<div class="text-end mt-2 cadastre-se mb-5">
+    <a href="/clientes/login_cliente" class="text-decoration-none">Logue-se aqui!</a>
+</div>
 
 <nav class="rodape">
     <img src="/images/ic_github.png">
