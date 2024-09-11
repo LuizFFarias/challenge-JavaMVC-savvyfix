@@ -9,10 +9,10 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping(value = "/clientes", produces = "application/json")
@@ -31,16 +31,38 @@ public class ClienteController {
         return mv;
     }
 
+    @GetMapping("/conta_cliente/{id}")
+    private ModelAndView contaCliente(@PathVariable Long id){
+
+        var cliente = service.findById(id);
+
+        if(cliente != null){
+            ModelAndView mv = new ModelAndView("conta_cliente");
+            mv.addObject("cliente", cliente);
+            return mv;
+        } else {
+            return new ModelAndView("redirect:/clientes/login_cliente");
+        }
+    }
+
     @PostMapping("/insere_cliente")
-    private ModelAndView save(@Valid ClienteRequest clienteRequest, BindingResult bd){
-        var cliente = service.toEntity(clienteRequest);
+    private ModelAndView save(@Valid Cliente cliente, BindingResult bd){
+        //var cliente = service.toEntity(clienteRequest);
         if(bd.hasErrors()){
             ModelAndView mv = new ModelAndView("cadastro_cliente");
             mv.addObject("cliente", cliente);
             return mv;
         } else{
             Endereco endereco = cliente.getEndereco();
+            if(endereco == null){
+                ModelAndView mv = new ModelAndView("cadastro_cliente");
+                mv.addObject("cliente", cliente);
+                return mv;
+            }
+
             serviceEndereco.save(endereco);
+
+            cliente.setEndereco(endereco);
             service.save(cliente);
 
             return new ModelAndView("redirect:/");
@@ -55,26 +77,16 @@ public class ClienteController {
     }
 
     @PostMapping("/logar_cliente")
-    private ModelAndView logar(@Valid Cliente cliente, BindingResult bd){
-        if(bd.hasErrors()){
-            ModelAndView mv = new ModelAndView("login_cliente");
-            return mv;
-        } else {
-            Cliente clieLogin = service.findByCpf(cliente.getCpf());
+    private ModelAndView logar(@RequestParam String cpf, @RequestParam String senha){
+            Cliente clieLogin = service.findByCpf(cpf);
 
-            if(clieLogin == null || !clieLogin.getSenha().equals(cliente.getSenha())){
+            if(clieLogin == null || !clieLogin.getSenha().equals(senha)){
                 ModelAndView mv = new ModelAndView("login_cliente");
                 mv.addObject("erro", "CPF ou senha inválidos");
                 return mv;
             } else {
-                return new ModelAndView("redirect:/");
+                return new ModelAndView("redirect:/clientes/conta_cliente/" + clieLogin.getId());
             }
         }
     }
 
-
-
-
-
-
-}

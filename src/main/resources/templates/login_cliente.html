@@ -26,7 +26,7 @@
 <form class="card-body mx-auto formulario mt-5" style="width: 40rem;" th:object="${cliente}" action="/clientes/logar_cliente" method="post">
   <div class="mb-3">
     <label class="form-label" for="cpf">CPF: </label>
-    <input type="number" class="form-control border border-secondary" th:field="*{cpf}" th:errorclass="is-invalid" id="cpf"  aria-describedby="cpf" required>
+    <input type="text" class="form-control border border-secondary" th:field="*{cpf}" th:errorclass="is-invalid" id="cpf"  aria-describedby="cpf" required>
     <div id="cpfHelp" class="form-text">Digite apenas os números</div>
     <div class="invalid-feedback" th:errors="*{cpf}"></div>
   </div>
