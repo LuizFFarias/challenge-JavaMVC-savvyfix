@@ -32,23 +32,16 @@ public class ClienteController {
     }
 
     @PostMapping("/insere_cliente")
-    private ModelAndView save(@Valid Cliente cliente, BindingResult bd){
+    private ModelAndView save(@Valid ClienteRequest clienteRequest, BindingResult bd){
+        var cliente = service.toEntity(clienteRequest);
         if(bd.hasErrors()){
             ModelAndView mv = new ModelAndView("cadastro_cliente");
             mv.addObject("cliente", cliente);
-            System.out.println("Erro no cpf");
             return mv;
         } else{
             Endereco endereco = cliente.getEndereco();
-            Cliente clie = Cliente.builder()
-                    .cpf(cliente.getCpf())
-                    .senha(cliente.getSenha())
-                    .nome(cliente.getNome())
-                    .endereco(endereco)
-                    .build();
-
             serviceEndereco.save(endereco);
-            service.save(clie);
+            service.save(cliente);
 
             return new ModelAndView("redirect:/");
         }
