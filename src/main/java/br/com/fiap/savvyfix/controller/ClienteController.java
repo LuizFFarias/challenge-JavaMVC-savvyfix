@@ -1,12 +1,16 @@
 package br.com.fiap.savvyfix.controller;
 
 import br.com.fiap.savvyfix.dto.request.ClienteRequest;
+import br.com.fiap.savvyfix.model.Atividades;
 import br.com.fiap.savvyfix.model.Cliente;
 import br.com.fiap.savvyfix.model.Endereco;
+import br.com.fiap.savvyfix.service.AtividadesService;
 import br.com.fiap.savvyfix.service.ClienteService;
 import br.com.fiap.savvyfix.service.EnderecoService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -16,13 +20,17 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping(value = "/clientes", produces = "application/json")
+@SessionAttributes("clienteLogado")
 public class ClienteController {
 
     @Autowired
     private ClienteService service;
 
     @Autowired
-    private EnderecoService serviceEndereco;
+    private EnderecoService serviceEnd;
+
+    @Autowired
+    private AtividadesService serviceAtv;
 
     @GetMapping("/cadastro_cliente")
     private ModelAndView save(){
@@ -47,7 +55,6 @@ public class ClienteController {
 
     @PostMapping("/insere_cliente")
     private ModelAndView save(@Valid Cliente cliente, BindingResult bd){
-        //var cliente = service.toEntity(clienteRequest);
         if(bd.hasErrors()){
             ModelAndView mv = new ModelAndView("cadastro_cliente");
             mv.addObject("cliente", cliente);
@@ -60,12 +67,18 @@ public class ClienteController {
                 return mv;
             }
 
-            serviceEndereco.save(endereco);
-
+            serviceEnd.save(endereco);
             cliente.setEndereco(endereco);
             service.save(cliente);
+            Atividades atividades = Atividades.builder()
+                    .cliente(cliente)
+                    .precoVariado(00.0f)
+                    .demanda("00")
+                    .qntdProcura(0)
+                    .build();
+            serviceAtv.save(atividades);
 
-            return new ModelAndView("redirect:/");
+            return new ModelAndView("redirect:/clientes/login_cliente");
         }
     }
 
@@ -77,7 +90,7 @@ public class ClienteController {
     }
 
     @PostMapping("/logar_cliente")
-    private ModelAndView logar(@RequestParam String cpf, @RequestParam String senha){
+    private ModelAndView logar(@RequestParam String cpf, @RequestParam String senha, HttpServletRequest request){
             Cliente clieLogin = service.findByCpf(cpf);
 
             if(clieLogin == null || !clieLogin.getSenha().equals(senha)){
@@ -85,7 +98,8 @@ public class ClienteController {
                 mv.addObject("erro", "CPF ou senha inválidos");
                 return mv;
             } else {
-                return new ModelAndView("redirect:/clientes/conta_cliente/" + clieLogin.getId());
+                request.getSession().setAttribute("clienteLogado", clieLogin);
+                return new ModelAndView("redirect:/produtos");
             }
         }
     }

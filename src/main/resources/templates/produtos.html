@@ -41,7 +41,7 @@
                             <span class="d-inline">R$: </span>
                             <span class="d-inline" th:text="${item.getPrecoFixo()}"></span>
                         </p>
-                        <a href="" class="btn btn-comprar float-end m-4">Comprar</a>
+                        <a th:href="@{/compras/confirmar_compra/{id}(id=${item.getId()})}" class="btn btn-comprar float-end m-4">Comprar</a>
                     </div>
                 </div>
             </div>
