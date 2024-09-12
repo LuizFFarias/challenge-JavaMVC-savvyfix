@@ -91,9 +91,8 @@ public class ClienteController {
             Cliente clieLogin = service.findByCpf(cpf);
 
             if(clieLogin == null || !clieLogin.getSenha().equals(senha)){
-                ModelAndView mv = new ModelAndView("login_cliente");
-                mv.addObject("erro", "CPF ou senha inválidos");
-                return mv;
+                return new ModelAndView("redirect:/clientes/login_cliente");
+
             } else {
                 request.getSession().setAttribute("clienteLogado", clieLogin);
                 return new ModelAndView("redirect:/produtos");
