@@ -70,13 +70,6 @@ public class ClienteController {
             serviceEnd.save(endereco);
             cliente.setEndereco(endereco);
             service.save(cliente);
-            Atividades atividades = Atividades.builder()
-                    .cliente(cliente)
-                    .precoVariado(00.0f)
-                    .demanda("00")
-                    .qntdProcura(0)
-                    .build();
-            serviceAtv.save(atividades);
 
             return new ModelAndView("redirect:/clientes/login_cliente");
         }

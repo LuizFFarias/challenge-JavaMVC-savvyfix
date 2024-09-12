@@ -18,6 +18,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalTime;
+
 @Controller
 @RequestMapping(value = "/compras", produces = "application/json")
 @SessionAttributes("clienteLogado")
@@ -85,6 +87,21 @@ public class CompraController {
             } else {
                 Float valorFinal = produto.getPrecoFixo() * compra.getQntdProd();
                 compra.setValorCompra(valorFinal);
+
+                // Simulação de análise dos dados das atividades e adicionando 10% de desconto na próxima compra
+                var precoDesconto = produto.getPrecoFixo() - (produto.getPrecoFixo() * 0.1);
+
+                Atividades atv = Atividades.builder()
+                        .cliente(clie)
+                        .precoVariado((float)precoDesconto)
+                        .demanda("Al")
+                        .qntdProcura(120)
+                        .climaAtual("Calor")
+                        .localizacaoAtual(clie.getEndereco().getBairro())
+                        .horarioAtual(LocalTime.now())
+                        .build();
+
+                serviceAtv.save(atv);
             }
             service.save(compra);
             return new ModelAndView("redirect:/");
