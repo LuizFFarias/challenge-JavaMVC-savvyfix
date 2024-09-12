@@ -81,12 +81,17 @@ public class CompraController {
             compra.setNomeProd(produto.getNome());
             compra.setCliente(clie);
 
-            Atividades atividades = serviceAtv.findByClienteId(clienteLogado.getId());
+            Float valorFinal;
+            Atividades atividades = serviceAtv.findByClienteId(clie.getId());
             if (atividades != null){
-                Float valorFinal = atividades.getPrecoVariado() * compra.getQntdProd();
-                compra.setValorCompra(valorFinal);
+                compra.setValorCompra(atividades.getPrecoVariado());
+                atividades.setPrecoVariado(produto.getPrecoFixo() - (produto.getPrecoFixo() * 0.1f));
+                atividades.setHorarioAtual(LocalTime.now());
+                atividades.setDemanda("Al");
+                atividades.setQntdProcura(atividades.getQntdProcura() + 1);
+                serviceAtv.save(atividades);
             } else {
-                Float valorFinal = produto.getPrecoFixo() * compra.getQntdProd();
+                valorFinal = produto.getPrecoFixo() * compra.getQntdProd();
                 compra.setValorCompra(valorFinal);
 
                 // Simulação de análise dos dados das atividades e adicionando 10% de desconto na próxima compra
