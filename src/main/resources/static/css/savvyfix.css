@@ -70,7 +70,7 @@
 
 }
 
-.produtos img{
+.img-prod{
     max-height: 270px;
     max-width: 270px;
     height: 100%;
@@ -111,6 +111,13 @@
 .btn-home{
     background-color: #407e01;
     margin-left: 38%;
+}
+
+.img-settings{
+    max-width: 30px;
+    max-height: 30px;
+    width: 100%;
+    height: 100%;
 }
 
 

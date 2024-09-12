@@ -47,7 +47,7 @@ public class Produto {
     private String marca;
 
     @Column(name = "PRECO_FIXO", nullable = false)
-    @NotEmpty(message = "{produto.preco_fixo.validar_vazio}")
+    @NotNull(message = "{produto.preco_fixo.validar_vazio}")
     @Positive(message = "{produto.preco_fixo.validar_positivo}")
     private Float precoFixo;
 

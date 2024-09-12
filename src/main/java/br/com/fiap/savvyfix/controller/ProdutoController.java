@@ -56,22 +56,10 @@ public class ProdutoController {
 	@PostMapping("/insere_produto")
 	private ModelAndView save(@Valid Produto prod, BindingResult bd) {
 		if (bd.hasErrors()){
-			bd.getAllErrors().forEach(error -> {
-				System.out.println("Error: " + error.getDefaultMessage());
-			});
 			ModelAndView mv = new ModelAndView("adiciona_produto");
-			var produto = service.produtoBuilder(prod);
-			mv.addObject("produto", produto);
 			return mv;
 
 		} else {
-//			Produto prod = new Produto();
-//			prod.setNome(produto.getNome());
-//			prod.setDescricao(produto.getDescricao());
-//			prod.setMarca(produto.getMarca());
-//			prod.setPrecoFixo(produto.getPrecoFixo());
-//			service.save(prod);
-
 			var produto = service.produtoBuilder(prod);
 			service.save(produto);
 			return new ModelAndView("redirect:/produtos");
@@ -103,18 +91,18 @@ public class ProdutoController {
 		} else {
 
 			Produto prod = service.findById(id);
-
 			if (prod == null) {
 				ModelAndView mv = new ModelAndView("edita_produto");
 				mv.addObject("produto", produto);
 				return mv;
 			} else {
-
 				prod.setNome(produto.getNome());
 				prod.setDescricao(produto.getDescricao());
 				prod.setMarca(produto.getMarca());
 				prod.setPrecoFixo(produto.getPrecoFixo());
+				prod.setImgProduto(produto.getImgProduto());
 				service.save(prod);
+
 				return new ModelAndView("redirect:/produtos");
 			}
 		}

@@ -27,10 +27,13 @@
         <div class="mb-3 produtos">
             <div class="row g-0 produto" th:each="item: ${produtos}" >
                 <div class="col-md-4">
-                    <img th:src="${item.getImgProduto()}" class="rounded-start pt-3 pb-3" alt="...">
+                    <img th:src="${item.getImgProduto()}" class="rounded-start pt-3 pb-3 img-prod" alt="...">
                 </div>
                 <div class="col-md-8">
                     <div class="pt-3 justify-content-center">
+                        <a th:href="@{/produtos/editar_produto/{id}(id= ${item.id})}">
+                            <img src="/images/ic_settings.png" class="img-settings float-end m-3">
+                        </a>
                         <h5 class="card-title fs-2" th:text="${item.getNome()}"></h5>
                         <p class="card-text fs-4" th:text="${item.getDescricao()}"></p>
                         <p class="card-text fs-4">

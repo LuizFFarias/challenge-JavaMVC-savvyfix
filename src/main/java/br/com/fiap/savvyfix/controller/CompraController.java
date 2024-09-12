@@ -51,16 +51,13 @@ public class CompraController {
     }
 
     @PostMapping("/finalizar_compra")
-    private ModelAndView save(@Valid Compra compra, BindingResult bd, @ModelAttribute("clienteLogado") Cliente clienteLogado, @RequestParam("produto.id") Long idProd){
-        if (bd.hasErrors()){
-            bd.getAllErrors().forEach(error -> {
-                System.out.println("Error: " + error.getDefaultMessage());
-            });
-            ModelAndView mv = new ModelAndView("compra");
-            mv.addObject("compra", compra);
-            return mv;
-        }
-        else{
+    private ModelAndView save( Compra compra, BindingResult bd, @ModelAttribute("clienteLogado") Cliente clienteLogado, @RequestParam("produto.id") Long idProd){
+
+            if (compra.getQntdProd() == null){
+                ModelAndView mv = new ModelAndView("compra");
+                mv.addObject("compra", compra);
+                return mv;
+            }
             Cliente clie = serviceClie.findByCpf(clienteLogado.getCpf());
             if(clie == null) {
                 ModelAndView mv = new ModelAndView("compra");
@@ -110,7 +107,7 @@ public class CompraController {
             }
             service.save(compra);
             return new ModelAndView("redirect:/compras/historico_compras/" + clie.getId());
-        }
+
     }
 
     @GetMapping("/historico_compras/{id}")

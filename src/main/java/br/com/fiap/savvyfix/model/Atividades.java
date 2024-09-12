@@ -15,9 +15,7 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -57,8 +55,7 @@ public class Atividades {
 
     @Column(name = "QNTD_PROCURA", nullable = false, length = 10)
     @Positive(message = "{atividades.qntdProcura.validar_positivo}")
-    @NotEmpty(message = "{atividades.qntdProcura.validar_vazio}")
-    @Size(min = 1, max = 10, message = "{atividades.qntdProcura.validar_tamanho}")
+    @NotNull(message = "{atividades.qntdProcura.validar_vazio}")
     private Integer qntdProcura;
 
     @Column(name = "DEMANDA_PRODUTO", nullable = false, length = 2)

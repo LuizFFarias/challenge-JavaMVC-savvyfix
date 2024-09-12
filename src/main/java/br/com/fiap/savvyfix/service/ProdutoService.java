@@ -19,6 +19,7 @@ public class ProdutoService implements ServiceDTO<Produto>{
 
 	 public Produto produtoBuilder(Produto produto){
 		 return  Produto.builder()
+				 .id(produto.getId())
 				.nome(produto.getNome())
 				.marca(produto.getMarca())
 				.descricao(produto.getDescricao())

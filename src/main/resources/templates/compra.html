@@ -13,13 +13,13 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary cabecalho pb-3">
     <img src="/images/ic_savvyfix.png" href="/" class="img-cabecalho mx-auto">
 </nav>
-<form class="card-body mx-auto formulario mt-5" style="width: 40rem;" th:object="${compra}" th:action="@{/compras/finalizar_compra}" method="post">
+<form class="card-body mx-auto formulario mt-5" style="width: 40rem;" th:object="${compra}" action="/compras/finalizar_compra" method="post">
     <input type="hidden"  name="produto.id" th:value="${produto.id}" />
 
 
     <div class="mb-3">
         <label class="form-label">Nome do Cliente:</label>
-        <input type="hidden" th:value="${clienteLogado.nome}" readonly/>
+        <input type="text" th:value="${clienteLogado.nome}" readonly/>
     </div>
     <div class="mb-3">
         <label class="form-label" for="produtoNome">Nome do Produto:</label>
