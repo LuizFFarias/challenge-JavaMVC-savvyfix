@@ -1,10 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/savvyfix.css">
+    <link rel="icon" href="/images/ic_savvyfix.png" type="image/png">
+
+
+    <title>Histórico</title>
 </head>
 <body>
+<nav class="navbar navbar-expand-lg bg-body-tertiary cabecalho pb-3">
+    <img src="/images/ic_savvyfix.png" href="/" class="img-cabecalho mx-auto">
+</nav>
+<div class="ronded-pill titulo mx-auto mt-5">
+    <h1 class="d-flex justify-content-center display-4 pt-3 pb-3">Histórico</h1>
+</div>
 
+<!-- Busca dos produtos -->
+<div class="d-flex justify-content-center">
+    <div class="mb-3 produtos">
+        <div class="row g-0 produto" th:each="item: ${compras}" >
+            <div class="col-md-4">
+                <img th:src="${item.produto.imgProduto}" class="rounded-start pt-3 pb-3" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="pt-3 justify-content-center">
+                    <h5 class="card-title fs-2" th:text="${item.nomeProd}"></h5>
+                    <p class="card-text fs-4" th:text="${item.especificacoes}"></p>
+                    <p class="card-text fs-4">
+                        <span class="d-inline">Quantidade: </span>
+                        <span class="d-inline" th:text="${item.qntdProd}"></span>
+                    </p>
+                    <p class="card-text fs-5" >
+                        <span class="d-inline">Valor do Produto R$: </span>
+                        <span class="d-inline" th:text="${item.produto.precoFixo}"></span>
+                    </p>
+                    <p class="card-text fs-5 pb-2" >
+                        <span class="d-inline">Valor do Total R$: </span>
+                        <span class="d-inline" th:text="${item.valorCompra}"></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<nav class="rodape">
+    <img src="/images/ic_github.png">
+    <img src="/images/ic_instagram.png">
+    <img src="/images/ic_x.png">
+</nav>
 </body>
 </html>

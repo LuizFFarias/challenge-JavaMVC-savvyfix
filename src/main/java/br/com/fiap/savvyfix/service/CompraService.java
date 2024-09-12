@@ -9,6 +9,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
 
 @Service
 public class CompraService implements ServiceDTO<Compra, CompraRequest, CompraResponse> {
@@ -87,6 +88,10 @@ public class CompraService implements ServiceDTO<Compra, CompraRequest, CompraRe
 
     public Compra findById(Long id) {
         return repo.findById(id).orElse(null);
+    }
+
+    public List<Compra> findByClienteId(Long clienteId) {
+        return repo.findByClienteId(clienteId);
     }
 
 }

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalTime;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/compras", produces = "application/json")
@@ -104,8 +105,25 @@ public class CompraController {
                 serviceAtv.save(atv);
             }
             service.save(compra);
-            return new ModelAndView("redirect:/");
+            return new ModelAndView("redirect:/compras/historico_compras/" + clie.getId());
         }
+    }
+
+    @GetMapping("/historico_compras/{id}")
+    private ModelAndView historico(@PathVariable Long id, @ModelAttribute("clienteLogado") Cliente cliente){
+
+        List<Compra> compras = service.findByClienteId(id);
+
+        if (compras.isEmpty()) {
+            ModelAndView mv = new ModelAndView("historico_compras");
+            mv.addObject("mensagem", "Nenhuma compra encontrada.");
+            return mv;
+        }
+
+        ModelAndView mv = new ModelAndView("historico_compras");
+        mv.addObject("compras", compras);
+        return mv;
+
     }
 
 }
