@@ -13,8 +13,8 @@
 
 <br>
 
-## Link do pitch
-https://youtu.be/AjXCegOAnfw
+## Link com a aplicação
+(link)
 
 <br>
 
