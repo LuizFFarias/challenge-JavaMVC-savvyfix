@@ -13,7 +13,10 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -38,16 +41,17 @@ public class Cliente {
     private Long id;
 
     @Column(name = "NM_CLIE", nullable = false, length = 50)
-    @NotNull(message = "O nome é obrigatório")
+    @NotEmpty(message = "{cliente.nome.validar_vazio}")
+    @Size(min = 3, max = 50, message = "{cliente.nome.validar_tamanho}")
     private String nome;
 
-    @CPF(message = "CPF inválido")
-    @NotNull(message = "O CPF é obrigatório")
+    @CPF(message = "{cliente.cpf.validar}")
+    @NotEmpty(message = "{cliente.cpf.validar_vazio}")
     @Column(name = "CPF_CLIE", nullable = false, length = 11)
     private String cpf;
 
     @Column(name = "SENHA_CLIE", nullable = false, length = 50 )
-    @NotNull(message = "A senha é obrigatória")
+    @NotEmpty(message = "{cliente.senha.validar_vazio}")
     private  String senha;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
@@ -58,6 +62,6 @@ public class Cliente {
                     name = "ID_ENDERECO_FK"
             )
     )
-
+    @Valid
     private Endereco endereco;
 }

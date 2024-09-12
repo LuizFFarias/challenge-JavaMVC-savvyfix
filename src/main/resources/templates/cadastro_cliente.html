@@ -30,9 +30,9 @@
     </div>
     <div class="mb-3">
         <label class="form-label" for="cpf">CPF</label>
-        <input type="number" class="form-control border border-secondary" th:field="*{cpf}" id="cpf"  aria-describedby="cpf" required>
+        <input type="number" class="form-control border border-secondary" th:field="*{cpf}" th:errorclass="is-invalid" id="cpf"  aria-describedby="cpf" required>
+        <div class="invalid-feedback" th:errors="*{cpf}"></div>
         <div id="cpfHelp" class="form-text">Digite apenas os números</div>
-        <p class="invalid-feedback" th:if="${#fields.hasErrors('cpf')}" th:errorclass="error"  th:errors="*{cpf}"></p>
     </div>
     <div class="mb-3">
         <label class="form-label font-monospace" for="SenhaClie">Senha</label>
@@ -56,22 +56,22 @@
     </div>
     <div class="mb-3">
         <label class="form-label font-monospace" for="NumEndereco">Bairro</label>
-        <input type="text" th:field="*{endereco.bairro}" th:errorclass="is-invalid" class="form-control border border-secondary" id="NumEndereco" required>
+        <input type="text" th:field="*{endereco.bairro}" th:errorclass="is-invalid" class="form-control border border-secondary" id="BairroEndereco" required>
         <div class="invalid-feedback" th:errors="*{endereco.bairro}"></div>
     </div>
     <div class="mb-3">
         <label class="form-label font-monospace" for="NumEndereco">Cidade</label>
-        <input type="text" th:field="*{endereco.cidade}" th:errorclass="is-invalid" class="form-control border border-secondary" id="NumEndereco" required>
+        <input type="text" th:field="*{endereco.cidade}" th:errorclass="is-invalid" class="form-control border border-secondary" id="CidadeEndereco" required>
         <div class="invalid-feedback" th:errors="*{endereco.cidade}"></div>
     </div>
     <div class="mb-3">
         <label class="form-label font-monospace" for="NumEndereco">Estado</label>
-        <input type="text" th:field="*{endereco.estado}" th:errorclass="is-invalid" class="form-control border border-secondary" id="NumEndereco" required>
+        <input type="text" th:field="*{endereco.estado}" th:errorclass="is-invalid" class="form-control border border-secondary" id="EstadoEndereco" required>
         <div class="invalid-feedback" th:errors="*{endereco.estado}"></div>
     </div>
     <div class="mb-3">
         <label class="form-label font-monospace" for="NumEndereco">País</label>
-        <input type="text" th:field="*{endereco.pais}" th:errorclass="is-invalid" class="form-control border border-secondary" id="NumEndereco" required>
+        <input type="text" th:field="*{endereco.pais}" th:errorclass="is-invalid" class="form-control border border-secondary" id="PaisEndereco" required>
         <div class="invalid-feedback" th:errors="*{endereco.pais}"></div>
     </div>
         <button type="submit" class="btn btn-confirmar">Cadastrar</button>

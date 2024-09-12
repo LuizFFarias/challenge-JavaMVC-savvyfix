@@ -53,7 +53,6 @@ public class ClienteController {
     private ModelAndView save(@Valid Cliente cliente, BindingResult bd){
         if(bd.hasErrors()){
             ModelAndView mv = new ModelAndView("cadastro_cliente");
-            mv.addObject("cliente", cliente);
             return mv;
         }
 
