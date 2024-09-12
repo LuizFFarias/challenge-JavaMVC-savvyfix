@@ -42,6 +42,7 @@ public class Cliente {
     private String nome;
 
     @CPF(message = "CPF inválido")
+    @NotNull(message = "O CPF é obrigatório")
     @Column(name = "CPF_CLIE", nullable = false, length = 11)
     private String cpf;
 

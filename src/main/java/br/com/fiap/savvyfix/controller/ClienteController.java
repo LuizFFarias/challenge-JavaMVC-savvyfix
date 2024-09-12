@@ -1,7 +1,6 @@
 package br.com.fiap.savvyfix.controller;
 
-import br.com.fiap.savvyfix.dto.request.ClienteRequest;
-import br.com.fiap.savvyfix.model.Atividades;
+
 import br.com.fiap.savvyfix.model.Cliente;
 import br.com.fiap.savvyfix.model.Endereco;
 import br.com.fiap.savvyfix.service.AtividadesService;
@@ -28,9 +27,6 @@ public class ClienteController {
 
     @Autowired
     private EnderecoService serviceEnd;
-
-    @Autowired
-    private AtividadesService serviceAtv;
 
     @GetMapping("/cadastro_cliente")
     private ModelAndView save(){
@@ -59,20 +55,29 @@ public class ClienteController {
             ModelAndView mv = new ModelAndView("cadastro_cliente");
             mv.addObject("cliente", cliente);
             return mv;
-        } else{
-            Endereco endereco = cliente.getEndereco();
-            if(endereco == null){
-                ModelAndView mv = new ModelAndView("cadastro_cliente");
-                mv.addObject("cliente", cliente);
-                return mv;
-            }
+        }
 
-            serviceEnd.save(endereco);
-            cliente.setEndereco(endereco);
-            service.save(cliente);
+        Cliente clienteExistente = service.findByCpf(cliente.getCpf());
+        if(clienteExistente != null){
+            ModelAndView mv = new ModelAndView("cadastro_cliente");
+            mv.addObject("cliente", cliente);
+            mv.addObject("erro", "CPF já cadastrado");
+            return mv;
+        }
+
+        Endereco endereco = cliente.getEndereco();
+        if(endereco == null){
+            ModelAndView mv = new ModelAndView("cadastro_cliente");
+            mv.addObject("cliente", cliente);
+            return mv;
+        }
+
+        serviceEnd.save(endereco);
+        cliente.setEndereco(endereco);
+        service.save(cliente);
 
             return new ModelAndView("redirect:/clientes/login_cliente");
-        }
+
     }
 
     @GetMapping("/login_cliente")

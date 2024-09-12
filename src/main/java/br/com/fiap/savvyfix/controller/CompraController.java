@@ -1,6 +1,5 @@
 package br.com.fiap.savvyfix.controller;
 
-import br.com.fiap.savvyfix.dto.request.CompraRequest;
 import br.com.fiap.savvyfix.model.Atividades;
 import br.com.fiap.savvyfix.model.Cliente;
 import br.com.fiap.savvyfix.model.Compra;

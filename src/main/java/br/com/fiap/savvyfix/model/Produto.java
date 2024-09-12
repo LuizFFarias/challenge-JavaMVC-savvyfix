@@ -51,6 +51,7 @@ public class Produto {
     private Float precoFixo;
 
     @Column(name = "IMG_PROD", nullable = false)
+    @NotNull(message = "A imagem deve é obrigatória")
     private String imgProduto;
 
 }

@@ -1,6 +1,5 @@
 package br.com.fiap.savvyfix.controller;
 
-import br.com.fiap.savvyfix.dto.request.ProdutoRequest;
 import br.com.fiap.savvyfix.model.Produto;
 import br.com.fiap.savvyfix.service.ProdutoService;
 import jakarta.validation.Valid;
@@ -55,13 +54,13 @@ public class ProdutoController {
 
 
 	@PostMapping("/insere_produto")
-	private ModelAndView save(@Valid ProdutoRequest produtoRequest, BindingResult bd) {
+	private ModelAndView save(@Valid Produto prod, BindingResult bd) {
 		if (bd.hasErrors()){
 			bd.getAllErrors().forEach(error -> {
 				System.out.println("Error: " + error.getDefaultMessage());
 			});
 			ModelAndView mv = new ModelAndView("adiciona_produto");
-			var produto = service.toEntity(produtoRequest);
+			var produto = service.produtoBuilder(prod);
 			mv.addObject("produto", produto);
 			return mv;
 
@@ -73,7 +72,7 @@ public class ProdutoController {
 //			prod.setPrecoFixo(produto.getPrecoFixo());
 //			service.save(prod);
 
-			var produto = service.toEntity(produtoRequest);
+			var produto = service.produtoBuilder(prod);
 			service.save(produto);
 			return new ModelAndView("redirect:/produtos");
 

@@ -1,8 +1,6 @@
 package br.com.fiap.savvyfix.controller;
 
 import br.com.fiap.savvyfix.model.Endereco;
-import br.com.fiap.savvyfix.model.Produto;
-import br.com.fiap.savvyfix.repository.EnderecoRepository;
 import br.com.fiap.savvyfix.service.EnderecoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

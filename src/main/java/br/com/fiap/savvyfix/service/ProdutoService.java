@@ -1,46 +1,32 @@
 package br.com.fiap.savvyfix.service;
 
 import java.util.Collection;
-import java.util.Optional;
+
 
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import br.com.fiap.savvyfix.dto.request.ProdutoRequest;
-import br.com.fiap.savvyfix.dto.response.ProdutoResponse;
 import br.com.fiap.savvyfix.model.Produto;
 import br.com.fiap.savvyfix.repository.ProdutoRepository;
 
 @Service
 @Transactional
-public class ProdutoService implements ServiceDTO<Produto, ProdutoRequest, ProdutoResponse>{
+public class ProdutoService implements ServiceDTO<Produto>{
 
 	 @Autowired
 	    private ProdutoRepository repo;
 
-	    @Override
-	    public Produto toEntity(ProdutoRequest produtoRequest) {
+	 public Produto produtoBuilder(Produto produto){
+		 return  Produto.builder()
+				.nome(produto.getNome())
+				.marca(produto.getMarca())
+				.descricao(produto.getDescricao())
+				.precoFixo(produto.getPrecoFixo())
+				.imgProduto(produto.getImgProduto())
+				.build();
 
-	        return Produto.builder()
-	                .nome( produtoRequest.nome() )
-	                .descricao( produtoRequest.descricao() )
-	                .marca( produtoRequest.marca() )
-	                .precoFixo( produtoRequest.precoFixo())
-					.imgProduto(produtoRequest.imgProduto())
-	                .build();
-	    }
-
-	    @Override
-	    public ProdutoResponse toResponse(Produto produto) {
-	        return ProdutoResponse.builder()
-	                .id(produto.getId())
-	                .nome( produto.getNome() )
-	                .descricao( produto.getDescricao() )
-	                .marca( produto.getMarca() )
-	                .precoFixo( produto.getPrecoFixo())
-	                .build();
-	    }
+	 }
 
 		@Override
 		public Collection<Produto> findAll() {

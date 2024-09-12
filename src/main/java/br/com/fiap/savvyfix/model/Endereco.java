@@ -7,6 +7,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,6 +30,8 @@ public class Endereco {
     private Long id;
 
     @Column(name = "CEP_ENDERECO", nullable = false, length = 8)
+    @Size(min = 8, max = 8, message = "O CEP deve conter 8 caracteres")
+    @NotNull(message = "O CEP é obrigatório")
     private String cep;
 
     @Column(name = "RUA_ENDERECO", nullable = false, length = 50)

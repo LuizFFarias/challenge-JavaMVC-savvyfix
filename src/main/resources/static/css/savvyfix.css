@@ -59,9 +59,8 @@
     margin-bottom: 8ch;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 100%; /* Ajustar a largura máxima */
-    flex: 1 1 300px; /* Ajustar a largura mínima dos cards */
-    /* Adicione outras propriedades de estilo conforme necessário */
+    max-width: 100%;
+    flex: 1 1 300px;
 }
 
 .produtos{
@@ -89,6 +88,29 @@
 
 .btn-comprar{
     background-color: #d6cbb5;
+}
+
+.card-home{
+    background-color: #d6cbb5;
+}
+.card-titulo-home, .card-texto-home{
+    color: black;
+    justify-content: center;
+}
+.home {
+    padding-left: 8%;
+}
+
+.home img{
+    max-height: 280px;
+    max-width: 500px;
+    height: 100%;
+    width: 100%;
+}
+
+.btn-home{
+    background-color: #407e01;
+    margin-left: 38%;
 }
 
 

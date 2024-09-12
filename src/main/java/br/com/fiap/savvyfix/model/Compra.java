@@ -12,6 +12,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -34,6 +35,7 @@ public class Compra {
     private Long id;
 
     @Column(name = "NM_PROD", nullable = false, length = 50)
+    @NotNull(message = "A quantidade de produtos é obrigatório")
     private String nomeProd;
 
     @Column(name = "QNTD_PROD", nullable = false, length = 3)
@@ -43,6 +45,7 @@ public class Compra {
     private Float valorCompra;
 
     @Column(name = "ESPECIFICACAO_PROD", nullable = false, length = 30)
+    @NotNull(message = "As especificacoes são obrigatórias")
     private  String especificacoes;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
