@@ -38,7 +38,7 @@
   <div class="alert alert-danger" th:if="${erro}" th:text="${erro}"></div>
 
   <button type="submit" class="btn btn-confirmar">Login</button>
-  <a href="/" class="btn btn-danger ml-auto float-end">Voltar</a>
+  <a href="/" class="btn btn-danger ml-auto float-end" th:text="#{voltar}">Voltar</a>
 </form>
 <div class="text-end mt-2 cadastre-se mb-5">
   <a href="/clientes/cadastro_cliente" class="text-decoration-none" th:text="#{cadastre.se}">Cadastre-se aqui!</a>
