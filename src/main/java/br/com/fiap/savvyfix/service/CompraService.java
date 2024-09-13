@@ -4,7 +4,6 @@ package br.com.fiap.savvyfix.service;
 import br.com.fiap.savvyfix.model.Compra;
 import br.com.fiap.savvyfix.repository.CompraRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;

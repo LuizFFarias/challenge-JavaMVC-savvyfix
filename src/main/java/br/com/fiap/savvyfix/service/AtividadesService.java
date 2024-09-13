@@ -2,11 +2,8 @@ package br.com.fiap.savvyfix.service;
 
 
 import br.com.fiap.savvyfix.model.Atividades;
-import br.com.fiap.savvyfix.model.Cliente;
 import br.com.fiap.savvyfix.repository.AtividadesRepository;
-import jakarta.ws.rs.client.Client;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;

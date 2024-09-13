@@ -2,10 +2,8 @@ package br.com.fiap.savvyfix.service;
 
 
 import br.com.fiap.savvyfix.model.Cliente;
-import br.com.fiap.savvyfix.model.Endereco;
 import br.com.fiap.savvyfix.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;

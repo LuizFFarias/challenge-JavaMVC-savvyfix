@@ -6,9 +6,6 @@ import br.com.fiap.savvyfix.service.AtividadesService;
 import br.com.fiap.savvyfix.service.ClienteService;
 import br.com.fiap.savvyfix.service.CompraService;
 import br.com.fiap.savvyfix.service.EnderecoService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -44,20 +41,6 @@ public class ClienteController {
         ModelAndView mv = new ModelAndView("cadastro_cliente");
         mv.addObject("cliente", new Cliente());
         return mv;
-    }
-
-    @GetMapping("/conta_cliente/{id}")
-    private ModelAndView contaCliente(@PathVariable Long id){
-
-        var cliente = service.findById(id);
-
-        if(cliente != null){
-            ModelAndView mv = new ModelAndView("conta_cliente");
-            mv.addObject("cliente", cliente);
-            return mv;
-        } else {
-            return new ModelAndView("redirect:/clientes/login_cliente");
-        }
     }
 
     @PostMapping("/insere_cliente")

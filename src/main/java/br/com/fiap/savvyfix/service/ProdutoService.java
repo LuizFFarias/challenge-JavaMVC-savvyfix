@@ -4,7 +4,6 @@ import java.util.Collection;
 
 
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import br.com.fiap.savvyfix.model.Produto;
