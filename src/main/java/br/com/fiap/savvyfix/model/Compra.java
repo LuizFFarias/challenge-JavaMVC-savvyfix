@@ -81,7 +81,7 @@ public class Compra {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(
-            name = "PRECO_VARIADO",
+            name = "ID_ATIVIDADES",
             referencedColumnName = "ID_ATIVIDADES",
             foreignKey = @ForeignKey(
                     name = "COMPRA_ATIVIDADES_FK"

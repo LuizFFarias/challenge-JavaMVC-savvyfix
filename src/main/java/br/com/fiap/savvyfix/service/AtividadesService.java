@@ -17,10 +17,6 @@ public class AtividadesService implements  ServiceDTO<Atividades>{
     @Autowired
     private AtividadesRepository repo;
 
-    @Autowired
-    private ClienteService clienteService;
-
-
     @Override
     public Collection<Atividades> findAll() {
         return repo.findAll();

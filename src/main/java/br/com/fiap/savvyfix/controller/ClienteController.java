@@ -6,20 +6,24 @@ import br.com.fiap.savvyfix.service.AtividadesService;
 import br.com.fiap.savvyfix.service.ClienteService;
 import br.com.fiap.savvyfix.service.CompraService;
 import br.com.fiap.savvyfix.service.EnderecoService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @Controller
 @RequestMapping(value = "/clientes", produces = "application/json")
+@Tag(name = "savvyfix-api-mvc")
 @SessionAttributes("clienteLogado")
 public class ClienteController {
 
@@ -162,24 +166,6 @@ public class ClienteController {
             return new ModelAndView("redirect:/compras/historico_compras/" + cliente.getId());
         }
 
-//        List<Compra> compras = serviceCpr.findByClienteId(cliente.getId());
-//        if (compras != null){
-//            for (Compra compra : compras){
-//                serviceAtv.deleteById(compra.getId());
-//            }
-//        }
-//
-//        Atividades atividades = serviceAtv.findByClienteId(cliente.getId());
-//        if (atividades != null){
-//            serviceAtv.deleteById(atividades.getId());
-//        }
-        List<Atividades> atividades = serviceAtv.findByClienteId(cliente.getId());
-        if (atividades != null && !atividades.isEmpty()) {
-            for (Atividades atv : atividades) {
-                serviceAtv.deleteById(atv.getId());
-            }
-        }
-
         List<Compra> compras = serviceCpr.findByClienteId(cliente.getId());
         if (compras != null && !compras.isEmpty()) {
             for (Compra compra : compras) {
@@ -187,12 +173,19 @@ public class ClienteController {
             }
         }
 
+        List<Atividades> atividades = serviceAtv.findByClienteId(cliente.getId());
+        if (atividades != null && !atividades.isEmpty()) {
+            for (Atividades atv : atividades) {
+                serviceAtv.deleteById(atv.getId());
+            }
+        }
+
         service.deleteById(id);
 
-//        Endereco endereco = serviceEnd.findById(cliente.getEndereco().getId());
-//        if (endereco != null){
-//            serviceEnd.deleteById(id);
-//        }
+        Endereco endereco = serviceEnd.findById(cliente.getEndereco().getId());
+        if (endereco != null){
+            serviceEnd.deleteById(id);
+        }
         return new ModelAndView("redirect:/");
 
     }

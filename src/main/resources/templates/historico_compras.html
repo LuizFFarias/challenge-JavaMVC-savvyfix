@@ -15,13 +15,54 @@
 <body>
 <nav class="navbar navbar-expand-lg bg-body-tertiary cabecalho pb-3">
     <a href="/"><img src="/images/ic_savvyfix.png" class="img-cabecalho"></a>
-    <a th:object="${compras}" th:href="@{/clientes/editar_cliente/{id}(id = ${compras[0].cliente.id}) }"><img src="/images/ic_user.png" class="img-cabecalho "></a>
 </nav>
+<div class="ronded-pill titulo mx-auto mt-5">
+    <h1 class="d-flex justify-content-center display-4 pt-3 pb-3" th:text="#{sua.conta}">Sua Conta</h1>
+</div>
+<form class="card-body mx-auto formulario mt-5" style="width: 40rem;" th:object="${cliente}">
+    <div class="mb-3">
+        <label class="form-label font-monospace" for="nomeCliente" th:text="#{nome.completo}">Nome completo</label>
+        <input type="text" th:field="*{nome}" th:errorclass="is-invalid" class="form-control border border-secondary" id="nomeCliente" readonly>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="cpf">CPF</label>
+        <input type="number" class="form-control border border-secondary" th:field="*{cpf}" th:errorclass="is-invalid" id="cpf"  aria-describedby="cpf" readonly>
+    </div>
+    <div class="mb-3">
+        <label class="form-label font-monospace" for="CepEndereco">CEP</label>
+        <input type="text" th:field="*{endereco.cep}" th:errorclass="is-invalid" class="form-control border border-secondary" id="CepEndereco" readonly>
+        <div class="invalid-feedback" th:errors="*{endereco.cep}"></div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label font-monospace" for="RuaEndereco" th:text="#{rua}">Rua</label>
+        <input type="text" th:field="*{endereco.rua}" th:errorclass="is-invalid" class="form-control border border-secondary" id="RuaEndereco" readonly>
+    </div>
+    <div class="mb-3">
+        <label class="form-label font-monospace" for="NumEndereco" th:text="#{numero}">Número</label>
+        <input type="number" th:field="*{endereco.numero}" th:errorclass="is-invalid" class="form-control border border-secondary" id="NumEndereco" readonly>
+    </div>
+    <div class="mb-3">
+        <label class="form-label font-monospace" for="NumEndereco" th:text="#{bairro}">Bairro</label>
+        <input type="text" th:field="*{endereco.bairro}" th:errorclass="is-invalid" class="form-control border border-secondary" id="BairroEndereco" readonly>
+    </div>
+    <div class="mb-3">
+        <label class="form-label font-monospace" for="NumEndereco" th:text="#{cidade}">Cidade</label>
+        <input type="text" th:field="*{endereco.cidade}" th:errorclass="is-invalid" class="form-control border border-secondary" id="CidadeEndereco" readonly>
+    </div>
+    <div class="mb-3">
+        <label class="form-label font-monospace" for="NumEndereco" th:text="#{estado}">Estado</label>
+        <input type="text" th:field="*{endereco.estado}" th:errorclass="is-invalid" class="form-control border border-secondary" id="EstadoEndereco" readonly>
+    </div>
+    <div class="mb-3">
+        <label class="form-label font-monospace" for="NumEndereco" th:text="#{pais}">País</label>
+        <input type="text" th:field="*{endereco.pais}" th:errorclass="is-invalid" class="form-control border border-secondary" id="PaisEndereco" readonly>
+    </div>
+    <a th:href="@{/clientes/editar_cliente/{id}(id = ${id}) }" class="btn btn-confirmar" th:text="#{editar}">Editar</a>
+</form>
 <div class="ronded-pill titulo mx-auto mt-5">
     <h1 class="d-flex justify-content-center display-4 pt-3 pb-3" th:text="#{historico}">Histórico</h1>
 </div>
-
-<!-- Busca dos produtos -->
+<!-- Busca das compras -->
 <div class="d-flex justify-content-center">
     <div class="mb-3 produtos">
         <div class="row g-0 produto" th:each="item: ${compras}" >

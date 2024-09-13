@@ -80,7 +80,8 @@ public class CompraController {
             Float valorFinal;
             Atividades atividades = serviceAtv.findFirstByClienteIdOrderByIdDesc(clie.getId());
             if (atividades != null){
-                compra.setValorCompra(atividades.getPrecoVariado());
+                compra.setValorCompra(atividades.getPrecoVariado() * compra.getQntdProd());
+                compra.setAtividades(atividades);
                 atividades.setPrecoVariado(produto.getPrecoFixo() - (produto.getPrecoFixo() * 0.1f));
                 atividades.setHorarioAtual(LocalTime.now());
                 atividades.setDemanda("Al");
@@ -114,8 +115,9 @@ public class CompraController {
     private ModelAndView historico(@PathVariable Long id, @ModelAttribute("clienteLogado") Cliente cliente){
 
         List<Compra> compras = service.findByClienteId(id);
+        Cliente cliente1 = serviceClie.findById(id);
 
-        if (compras.isEmpty()) {
+        if (compras.isEmpty() || cliente1 == null) {
             ModelAndView mv = new ModelAndView("historico_compras");
             mv.addObject("mensagem", "Nenhuma compra encontrada.");
             return mv;
@@ -123,6 +125,7 @@ public class CompraController {
 
         ModelAndView mv = new ModelAndView("historico_compras");
         mv.addObject("compras", compras);
+        mv.addObject("cliente", cliente1);
         return mv;
 
     }

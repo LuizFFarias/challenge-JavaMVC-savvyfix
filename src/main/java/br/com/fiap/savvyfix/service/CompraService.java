@@ -16,15 +16,6 @@ public class CompraService implements ServiceDTO<Compra> {
     @Autowired
     private CompraRepository repo;
 
-    @Autowired
-    private AtividadesService atividadesService;
-
-    @Autowired
-    private ProdutoService produtoService;
-
-    @Autowired
-    private ClienteService clienteService;
-
     @Override
     public Collection<Compra> findAll() {
         return repo.findAll();

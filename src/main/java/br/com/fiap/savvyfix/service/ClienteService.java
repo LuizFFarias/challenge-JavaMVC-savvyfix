@@ -16,10 +16,6 @@ public class ClienteService implements  ServiceDTO<Cliente>{
     @Autowired
     private ClienteRepository repo;
 
-    @Autowired
-    private EnderecoService enderecoService;
-
-
     @Override
     public Collection<Cliente> findAll() {
         return repo.findAll();
