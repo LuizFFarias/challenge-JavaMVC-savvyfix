@@ -22,9 +22,9 @@
       <div class="card" style="max-width: 30rem; background-color: #d6cbb5">
         <img src="/images/img_produtos.png" class="card-img-top" alt="...">
         <div class="card-body">
-          <h5 class="card-titulo-home text-center">Produtos</h5>
-          <p class="card-texto-home text-center">Venha encontrar o melhor tênis para o seu estilo!</p>
-          <a href="/clientes/login_cliente" class="btn text-white btn-home">Ver Produtos</a>
+          <h5 class="card-titulo-home text-center" th:text="#{produtos}">Produtos</h5>
+          <p class="card-texto-home text-center" th:text="#{txt.home.produtos}">Venha encontrar o melhor tênis para o seu estilo!</p>
+          <a href="/clientes/login_cliente" class="btn text-white btn-home" th:text="#{ver.produtos}">Ver Produtos</a>
         </div>
       </div>
     </div>
@@ -32,9 +32,9 @@
       <div class="card" style="max-width: 30rem; background-color: #d6cbb5">
         <img src="/images/img_cadastro.png" class="card-img-top" alt="...">
         <div class="card-body">
-          <h5 class="card-titulo-home text-center">Cadastre-se!</h5>
-          <p class="card-texto-home text-center">Realize o cadastro para fazer suas compras.</p>
-          <a href="/clientes/cadastro_cliente" class="btn text-white btn-home">Cadastrar</a>
+          <h5 class="card-titulo-home text-center" th:text="#{cadastre.se}">Cadastre-se!</h5>
+          <p class="card-texto-home text-center" th:text="#{txt.home.cadastro}">Realize o cadastro para fazer suas compras.</p>
+          <a href="/clientes/cadastro_cliente" class="btn text-white btn-home" th:text="#{cadastrar}">Cadastrar</a>
         </div>
       </div>
     </div>

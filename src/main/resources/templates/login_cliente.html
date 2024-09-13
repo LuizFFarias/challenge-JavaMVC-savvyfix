@@ -27,10 +27,10 @@
   <div class="mb-3">
     <label class="form-label" for="cpf">CPF: </label>
     <input type="text" class="form-control border border-secondary" th:field="*{cpf}" id="cpf" aria-describedby="cpf" required>
-    <div id="cpfHelp" class="form-text">Digite apenas os números</div>
+    <div id="cpfHelp" class="form-text" th:text="#{aviso.cpf}">Digite apenas os números</div>
   </div>
   <div class="mb-3">
-    <label class="form-label font-monospace" for="SenhaClie">Senha:</label>
+    <label class="form-label font-monospace" for="SenhaClie" th:text="#{senha}">Senha:</label>
     <input type="password" class="form-control border border-secondary" th:field="*{senha}" id="SenhaClie" required>
   </div>
 
@@ -41,7 +41,7 @@
   <a href="/" class="btn btn-danger ml-auto float-end">Voltar</a>
 </form>
 <div class="text-end mt-2 cadastre-se mb-5">
-  <a href="/clientes/cadastro_cliente" class="text-decoration-none">Cadastre-se aqui!</a>
+  <a href="/clientes/cadastro_cliente" class="text-decoration-none" th:text="#{cadastre.se}">Cadastre-se aqui!</a>
 </div>
 
 <nav class="rodape">

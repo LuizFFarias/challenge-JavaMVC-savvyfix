@@ -17,10 +17,10 @@
     <a href="/"><img src="/images/ic_savvyfix.png" class="img-cabecalho"></a>
 </nav>
     <div class="ronded-pill titulo mx-auto mt-5">
-        <h1 class="d-flex justify-content-center display-4 pt-3 pb-3">Produtos</h1>
+        <h1 class="d-flex justify-content-center display-4 pt-3 pb-3" th:text="#{produtos}">Produtos</h1>
     </div>
 
-    <a href="/produtos/adiciona_produto" class="btn btn-outline-primary">Adicionar um produto</a>
+    <a href="/produtos/adiciona_produto" class="btn btn-outline-primary" th:text="#{add.produto}">Adicionar um produto</a>
 
     <!-- Busca dos produtos -->
     <div class="d-flex justify-content-center">
@@ -44,7 +44,7 @@
                             <span class="d-inline">R$: </span>
                             <span class="d-inline" th:text="${item.getPrecoFixo()}"></span>
                         </p>
-                        <a th:href="@{/compras/confirmar_compra/{id}(id=${item.getId()})}" class="btn btn-comprar float-end m-4">Comprar</a>
+                        <a th:href="@{/compras/confirmar_compra/{id}(id=${item.getId()})}" class="btn btn-comprar float-end m-4" th:text="#{comprar}">Comprar</a>
                     </div>
                 </div>
             </div>

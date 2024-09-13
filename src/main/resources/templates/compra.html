@@ -18,20 +18,20 @@
 
 
     <div class="mb-3">
-        <label class="form-label">Nome do Cliente:</label>
+        <label class="form-label" th:text="#{nome.cliente}">Nome do Cliente:</label>
         <input type="text" th:value="${clienteLogado.nome}" readonly/>
     </div>
     <div class="mb-3">
-        <label class="form-label" for="produtoNome">Nome do Produto:</label>
+        <label class="form-label" for="produtoNome" th:text="#{nome.produto}">Nome do Produto:</label>
         <input type="text" class="form-control" id="produtoNome" th:value="${produto.nome}" readonly />
     </div>
     <div class="mb-3">
-        <label class="form-label" for="quantidade">Quantidade:</label>
+        <label class="form-label" for="quantidade" th:text="#{quantidade}">Quantidade:</label>
         <input type="number" class="form-control" id="quantidade" name="qntdProd" min="1" required />
     </div>
 
-    <button type="submit" class="btn btn-confirmar">Finalizar Compra</button>
-    <a href="/" class="btn btn-danger ml-auto float-end">Voltar</a>
+    <button type="submit" class="btn btn-confirmar" th:text="#{finalizar.compra}">Finalizar Compra</button>
+    <a href="/" class="btn btn-danger ml-auto float-end" th:text="#{voltar}">Voltar</a>
 </form>
 <nav class="rodape" style="position: fixed; bottom: 0;">
     <img src="/images/ic_github.png">

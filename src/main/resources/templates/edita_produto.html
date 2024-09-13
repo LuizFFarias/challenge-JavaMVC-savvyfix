@@ -18,40 +18,40 @@
   <a href="/"><img src="/images/ic_savvyfix.png" class="img-cabecalho"></a>
 </nav>
 <div class="ronded-pill titulo mx-auto mt-5">
-  <h1 class="display-5 text-center pb-3 pt-3">Produtos</h1>
+  <h1 class="display-5 text-center pb-3 pt-3" th:text="#{produtos}">Produtos</h1>
 </div>
 
 <form class="card-body mx-auto formulario mt-5 mb-5" style="width: 40rem;" th:object="${produto}" th:action="@{/produtos/edita_produto/{idProd}(idProd = ${produto.id}) }" method="post">
   </div>
   <div class="mb-3">
-    <label class="form-label font-monospace" for="nome">Nome: </label>
+    <label class="form-label font-monospace" for="nome" th:text="#{nome}">Nome: </label>
     <input type="text" class="form-control border border-secondary" th:field="*{nome}" th:errorclass="is-invalid" id="nome" required>
     <div class="invalid-feedback" th:errors="*{nome}"></div>
   </div>
   <div class="mb-3">
-    <label class="form-label font-monospace" for="marca">Marca:</label>
+    <label class="form-label font-monospace" for="marca" th:text="#{marca}">Marca:</label>
     <input type="text" th:field="*{marca}" th:errorclass="is-invalid" class="form-control border border-secondary" id="marca" required>
     <div class="invalid-feedback" th:errors="*{marca}"></div>
   </div>
   <div class="mb-3">
-    <label class="form-label font-monospace" for="descricao">Descrição:</label>
+    <label class="form-label font-monospace" for="descricao" th:text="#{descricao}">Descrição:</label>
     <input type="text" th:field="*{descricao}" th:errorclass="is-invalid" class="form-control border border-secondary" id="descricao" required>
     <div class="invalid-feedback" th:errors="*{descricao}"></div>
   </div>
   <div class="mb-3">
-    <label class="form-label font-monospace" for="preco">Preco:</label>
+    <label class="form-label font-monospace" for="preco" th:text="#{preco}">Preco:</label>
     <input type="number" class="form-control border border-secondary" th:field="*{precoFixo}" th:errorclass="is-invalid" id="preco" step="0.01" required>
     <div class="invalid-feedback" th:errors="*{precoFixo}"></div>
   </div>
   <div class="mb-3">
-    <label class="form-label font-monospace" for="img">Endereco da imagem:</label>
+    <label class="form-label font-monospace" for="img" th:text="#{endereco.img}">Endereco da imagem:</label>
     <input type="text" th:field="*{imgProduto}" th:errorclass="is-invalid" class="form-control border border-secondary" id="img" required>
     <div class="invalid-feedback" th:errors="*{imgProduto}"></div>
     <div id="imgHelp" class="form-text">Digite o endereço https de uma imagem</div>
   </div>
-  <button type="submit" class="btn btn-confirmar">Cadastrar</button>
-  <a th:href="@{/produtos/deletar_produto/{id}(id = ${produto.id}) }" class="btn btn-outline-danger ml-auto">DELETAR</a>
-  <a href="/produtos" class="btn btn-danger ml-auto float-end">Voltar</a>
+  <button type="submit" class="btn btn-confirmar" th:text="#{cadastrar}">Cadastrar</button>
+  <a th:href="@{/produtos/deletar_produto/{id}(id = ${produto.id}) }" class="btn btn-outline-danger ml-auto" th:text="#{deletar}">DELETAR</a>
+  <a href="/produtos" class="btn btn-danger ml-auto float-end" th:text="#{voltar}">Voltar</a>
 </form>
 
 <nav class="rodape">
