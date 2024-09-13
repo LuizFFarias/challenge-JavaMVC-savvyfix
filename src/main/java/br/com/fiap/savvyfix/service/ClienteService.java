@@ -35,4 +35,6 @@ public class ClienteService implements  ServiceDTO<Cliente>{
     }
 
     public Cliente findByCpf(String cpf) {return repo.findByCpf(cpf);}
+
+    public void deleteById(Long id){repo.deleteById(id);}
 }

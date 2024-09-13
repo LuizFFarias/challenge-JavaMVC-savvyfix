@@ -78,7 +78,7 @@ public class CompraController {
             compra.setCliente(clie);
 
             Float valorFinal;
-            Atividades atividades = serviceAtv.findByClienteId(clie.getId());
+            Atividades atividades = serviceAtv.findByClienteIdRecente(clie.getId());
             if (atividades != null){
                 compra.setValorCompra(atividades.getPrecoVariado());
                 atividades.setPrecoVariado(produto.getPrecoFixo() - (produto.getPrecoFixo() * 0.1f));

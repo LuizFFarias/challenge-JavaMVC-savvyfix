@@ -39,6 +39,8 @@ public class CompraService implements ServiceDTO<Compra> {
         return repo.findById(id).orElse(null);
     }
 
+    public void deleteById(Long id){repo.deleteById(id);}
+
     public List<Compra> findByClienteId(Long clienteId) {
         return repo.findByClienteId(clienteId);
     }

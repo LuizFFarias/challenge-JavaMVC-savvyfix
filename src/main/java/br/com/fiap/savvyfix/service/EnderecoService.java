@@ -27,5 +27,5 @@ public class EnderecoService implements ServiceDTO<Endereco>{
         return repo.save( endereco );
     }
 
-
+    public void deleteById(Long id){repo.deleteById(id);}
 }

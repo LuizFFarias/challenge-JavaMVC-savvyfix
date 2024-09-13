@@ -5,7 +5,10 @@ import org.springframework.stereotype.Repository;
 
 import br.com.fiap.savvyfix.model.Atividades;
 
+import java.util.List;
+
 @Repository
 public interface AtividadesRepository extends JpaRepository<Atividades, Long> {
-    Atividades findByClienteId(Long clienteId);
+    List<Atividades> findByClienteId(Long clienteId);
+    Atividades findFirstByClienteIdOrderByIdDesc(Long clierteId);
 }

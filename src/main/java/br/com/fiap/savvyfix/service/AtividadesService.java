@@ -10,6 +10,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
 
 @Service
 public class AtividadesService implements  ServiceDTO<Atividades>{
@@ -32,7 +33,11 @@ public class AtividadesService implements  ServiceDTO<Atividades>{
 
     public Atividades findById(Long id) {return repo.findById(id).orElse(null);}
 
-    public Atividades findByClienteId(Long clienteId) {return repo.findByClienteId(clienteId);}
+    public List<Atividades> findByClienteId(Long clienteId) {return repo.findByClienteId(clienteId);}
+
+    public Atividades findByClienteIdRecente(Long id){return repo.findFirstByClienteIdOrderByIdDesc(id);}
+
+    public void deleteById(Long id){repo.deleteById(id);}
 
 
 }
