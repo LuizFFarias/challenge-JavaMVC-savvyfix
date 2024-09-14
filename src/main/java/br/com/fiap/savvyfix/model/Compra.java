@@ -52,9 +52,9 @@ public class Compra {
     @NotNull(message = "{compra.valorCompra.validar_vazio}")
     private Float valorCompra;
 
-    @Column(name = "ESPECIFICACAO_PROD", nullable = false, length = 30)
+    @Column(name = "ESPECIFICACAO_PROD", nullable = false, length = 50)
     @NotEmpty(message = "{compra.especificacoes.validar_vazio}")
-    @Size(min = 2, max = 30, message = "{compra.especificacoes.validar_tamanho}")
+    @Size(min = 2, max = 50, message = "{compra.especificacoes.validar_tamanho}")
     private String especificacoes;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
