@@ -1,0 +1,100 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/savvyfix.css">
+    <link rel="icon" href="/images/ic_savvyfix.png" type="image/png">
+
+
+    <title>Histórico</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg bg-body-tertiary cabecalho pb-3">
+    <a href="/"><img src="/images/ic_savvyfix.png" class="img-cabecalho"></a>
+</nav>
+<div class="ronded-pill titulo mx-auto mt-5">
+    <h1 class="d-flex justify-content-center display-4 pt-3 pb-3" th:text="#{sua.conta}">Sua Conta</h1>
+</div>
+<form class="card-body mx-auto formulario mt-5" style="width: 40rem;" th:object="${cliente}">
+    <div class="mb-3">
+        <label class="form-label font-monospace" for="nomeCliente" th:text="#{nome.completo}">Nome completo</label>
+        <input type="text" th:field="*{nome}" th:errorclass="is-invalid" class="form-control border border-secondary" id="nomeCliente" readonly>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="cpf">CPF</label>
+        <input type="number" class="form-control border border-secondary" th:field="*{cpf}" th:errorclass="is-invalid" id="cpf"  aria-describedby="cpf" readonly>
+    </div>
+    <div class="mb-3">
+        <label class="form-label font-monospace" for="CepEndereco">CEP</label>
+        <input type="text" th:field="*{endereco.cep}" th:errorclass="is-invalid" class="form-control border border-secondary" id="CepEndereco" readonly>
+        <div class="invalid-feedback" th:errors="*{endereco.cep}"></div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label font-monospace" for="RuaEndereco" th:text="#{rua}">Rua</label>
+        <input type="text" th:field="*{endereco.rua}" th:errorclass="is-invalid" class="form-control border border-secondary" id="RuaEndereco" readonly>
+    </div>
+    <div class="mb-3">
+        <label class="form-label font-monospace" for="NumEndereco" th:text="#{numero}">Número</label>
+        <input type="number" th:field="*{endereco.numero}" th:errorclass="is-invalid" class="form-control border border-secondary" id="NumEndereco" readonly>
+    </div>
+    <div class="mb-3">
+        <label class="form-label font-monospace" for="NumEndereco" th:text="#{bairro}">Bairro</label>
+        <input type="text" th:field="*{endereco.bairro}" th:errorclass="is-invalid" class="form-control border border-secondary" id="BairroEndereco" readonly>
+    </div>
+    <div class="mb-3">
+        <label class="form-label font-monospace" for="NumEndereco" th:text="#{cidade}">Cidade</label>
+        <input type="text" th:field="*{endereco.cidade}" th:errorclass="is-invalid" class="form-control border border-secondary" id="CidadeEndereco" readonly>
+    </div>
+    <div class="mb-3">
+        <label class="form-label font-monospace" for="NumEndereco" th:text="#{estado}">Estado</label>
+        <input type="text" th:field="*{endereco.estado}" th:errorclass="is-invalid" class="form-control border border-secondary" id="EstadoEndereco" readonly>
+    </div>
+    <div class="mb-3">
+        <label class="form-label font-monospace" for="NumEndereco" th:text="#{pais}">País</label>
+        <input type="text" th:field="*{endereco.pais}" th:errorclass="is-invalid" class="form-control border border-secondary" id="PaisEndereco" readonly>
+    </div>
+    <a th:href="@{/clientes/editar_cliente/{id}(id = ${id}) }" class="btn btn-confirmar" th:text="#{editar}">Editar</a>
+</form>
+<div class="ronded-pill titulo mx-auto mt-5">
+    <h1 class="d-flex justify-content-center display-4 pt-3 pb-3" th:text="#{historico}">Histórico</h1>
+</div>
+<!-- Busca das compras -->
+<div class="d-flex justify-content-center">
+    <div class="mb-3 produtos">
+        <div class="row g-0 produto" th:each="item: ${compras}" >
+            <div class="col-md-4">
+                <img th:src="${item.produto.imgProduto}" class="rounded-start pt-3 img-prod pb-3" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="pt-3 justify-content-center">
+                    <h5 class="card-title fs-2" th:text="${item.nomeProd}"></h5>
+                    <p class="card-text fs-4" th:text="${item.especificacoes}"></p>
+                    <p class="card-text fs-4">
+                        <span class="d-inline" th:text="#{quantidade}">Quantidade: </span>
+                        <span class="d-inline" th:text="${item.qntdProd}"></span>
+                    </p>
+                    <p class="card-text fs-5" >
+                        <span class="d-inline" th:text="#{valor.produto}">Valor do Produto R$: </span>
+                        <span class="d-inline" th:text="${item.produto.precoFixo}"></span>
+                    </p>
+                    <p class="card-text fs-5 pb-2" >
+                        <span class="d-inline" th:text="#{valor.total}">Valor do Total R$: </span>
+                        <span class="d-inline" th:text="${item.valorCompra}"></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<a href="/" class="btn btn-comprar float-end m-4" th:text="#{voltar}">Voltar</a>
+<nav class="rodape">
+    <a href="https://github.com/LuizFFarias/challenge-JavaMVC-savvyfix.git"><img src="/images/ic_github.png"></a>
+    <a href="https://www.instagram.com"><img src="/images/ic_instagram.png"></a>
+    <a href="https://bsky.app"><img src="/images/ic_bluesky.png"></a>
+</nav>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="/css/savvyfix.css">
+  <link rel="icon" href="/images/ic_savvyfix.png" type="image/png">
+
+  <title>Cadastro</title>
+</head>
+
+<body>
+
+
+<!-- Realizar cadastro de um novo usuário no banco -->
+<nav class="navbar navbar-expand-lg bg-body-tertiary cabecalho pb-3">
+  <a href="/"><img src="/images/ic_savvyfix.png" class="img-cabecalho"></a>
+</nav>
+<div class="ronded-pill titulo mx-auto mt-5">
+  <h1 class="display-5 text-center pb-3 pt-3" th:text="#{editar}">EDITAR</h1>
+</div>
+<form class="card-body mx-auto formulario mt-5 mb-3" style="width: 40rem;" th:object="${cliente}" th:action="@{/clientes/edita_conta/{id}(id = ${cliente.id}) }" method="post">
+  <div class="mb-3">
+    <label class="form-label font-monospace" for="nomeCliente" th:text="#{nome.completo}">Nome completo</label>
+    <input type="text" th:field="*{nome}" th:errorclass="is-invalid" class="form-control border border-secondary" id="nomeCliente" required>
+    <div class="invalid-feedback" th:errors="*{nome}"></div>
+  </div>
+  <div class="mb-3">
+    <label class="form-label" for="cpf">CPF</label>
+    <input type="number" class="form-control border border-secondary" th:field="*{cpf}" th:errorclass="is-invalid" id="cpf"  aria-describedby="cpf" required>
+    <div class="invalid-feedback" th:errors="*{cpf}"></div>
+    <div id="cpfHelp" class="form-text">Digite apenas os números</div>
+  </div>
+  <div class="mb-3">
+    <label class="form-label font-monospace" for="SenhaClie" th:text="#{senha}">Senha</label>
+    <input type="password" class="form-control border border-secondary" th:field="*{senha}" th:errorclass="is-invalid" id="SenhaClie" required>
+    <div class="invalid-feedback" th:errors="*{senha}"></div>
+  </div>
+  <div class="mb-3">
+    <label class="form-label font-monospace" for="CepEndereco">CEP</label>
+    <input type="text" th:field="*{endereco.cep}" th:errorclass="is-invalid" class="form-control border border-secondary" id="CepEndereco" required>
+    <div class="invalid-feedback" th:errors="*{endereco.cep}"></div>
+  </div>
+  <div class="mb-3">
+    <label class="form-label font-monospace" for="RuaEndereco" th:text="#{rua}">Rua</label>
+    <input type="text" th:field="*{endereco.rua}" th:errorclass="is-invalid" class="form-control border border-secondary" id="RuaEndereco" required>
+    <div class="invalid-feedback" th:errors="*{endereco.rua}"></div>
+  </div>
+  <div class="mb-3">
+    <label class="form-label font-monospace" for="NumEndereco" th:text="#{numero}">Número</label>
+    <input type="number" th:field="*{endereco.numero}" th:errorclass="is-invalid" class="form-control border border-secondary" id="NumEndereco" required>
+    <div class="invalid-feedback" th:errors="*{endereco.numero}"></div>
+  </div>
+  <div class="mb-3">
+    <label class="form-label font-monospace" for="NumEndereco" th:text="#{bairro}">Bairro</label>
+    <input type="text" th:field="*{endereco.bairro}" th:errorclass="is-invalid" class="form-control border border-secondary" id="BairroEndereco" required>
+    <div class="invalid-feedback" th:errors="*{endereco.bairro}"></div>
+  </div>
+  <div class="mb-3">
+    <label class="form-label font-monospace" for="NumEndereco" th:text="#{cidade}">Cidade</label>
+    <input type="text" th:field="*{endereco.cidade}" th:errorclass="is-invalid" class="form-control border border-secondary" id="CidadeEndereco" required>
+    <div class="invalid-feedback" th:errors="*{endereco.cidade}"></div>
+  </div>
+  <div class="mb-3">
+    <label class="form-label font-monospace" for="NumEndereco" th:text="#{estado}">Estado</label>
+    <input type="text" th:field="*{endereco.estado}" th:errorclass="is-invalid" class="form-control border border-secondary" id="EstadoEndereco" required>
+    <div class="invalid-feedback" th:errors="*{endereco.estado}"></div>
+  </div>
+  <div class="mb-3">
+    <label class="form-label font-monospace" for="NumEndereco" th:text="#{pais}">País</label>
+    <input type="text" th:field="*{endereco.pais}" th:errorclass="is-invalid" class="form-control border border-secondary" id="PaisEndereco" required>
+    <div class="invalid-feedback" th:errors="*{endereco.pais}"></div>
+  </div>
+  <button type="submit" class="btn btn-confirmar" th:text="#{editar}">Editar</button>
+  <a th:href="@{/clientes/deletar_conta/{id}(id = ${cliente.id}) }" class="btn btn-outline-danger ml-auto" th:text="#{deletar}" >DELETAR</a>
+  <a href="/" class="btn btn-danger ml-auto float-end" th:text="#{voltar}">Voltar</a>
+</form>
+<nav class="rodape">
+  <a href="https://github.com/LuizFFarias/challenge-JavaMVC-savvyfix.git"><img src="/images/ic_github.png"></a>
+  <a href="https://www.instagram.com"><img src="/images/ic_instagram.png"></a>
+  <a href="https://bsky.app"><img src="/images/ic_bluesky.png"></a>
+</nav>
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+</body>
+</html>
+

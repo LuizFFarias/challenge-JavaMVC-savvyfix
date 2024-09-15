@@ -12,6 +12,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,7 +26,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-
 
 @Entity
 @Table(name = "COMPRA")
@@ -34,16 +38,24 @@ public class Compra {
     private Long id;
 
     @Column(name = "NM_PROD", nullable = false, length = 50)
+    @NotEmpty(message = "{compra.nomeProd.validar_vazio}")
+    @Size(min = 2, max = 50, message = "{compra.nomeProd.validar_tamanho}")
     private String nomeProd;
 
-    @Column(name = "QNTD_PROD", nullable = false, length = 3)
+    @Column(name = "QNTD_PROD", nullable = false)
+    @Positive(message = "{compra.qntdProd.validar_positivo}")
+    @NotNull(message = "{compra.qntdProd.validar_vazio}")
     private Integer qntdProd;
 
     @Column(name = "VALOR_COMPRA", nullable = false)
+    @Positive(message = "{compra.valorCompra.validar_positivo}")
+    @NotNull(message = "{compra.valorCompra.validar_vazio}")
     private Float valorCompra;
 
-    @Column(name = "ESPECIFICACAO_PROD", nullable = false, length = 30)
-    private  String especificacoes;
+    @Column(name = "ESPECIFICACAO_PROD", nullable = false, length = 50)
+    @NotEmpty(message = "{compra.especificacoes.validar_vazio}")
+    @Size(min = 2, max = 50, message = "{compra.especificacoes.validar_tamanho}")
+    private String especificacoes;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(
@@ -53,7 +65,7 @@ public class Compra {
                     name = "COMPRA_PRODUTO_FK"
             )
     )
-
+    @Valid
     private Produto produto;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
@@ -64,17 +76,17 @@ public class Compra {
                     name = "COMPRA_CLIENTE_FK"
             )
     )
-
+    @Valid
     private Cliente cliente;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(
-            name = "PRECO_VARIADO",
+            name = "ID_ATIVIDADES",
             referencedColumnName = "ID_ATIVIDADES",
             foreignKey = @ForeignKey(
                     name = "COMPRA_ATIVIDADES_FK"
             )
     )
-
+    @Valid
     private Atividades atividades;
 }
