@@ -6,7 +6,6 @@ import br.com.fiap.savvyfix.service.AtividadesService;
 import br.com.fiap.savvyfix.service.ClienteService;
 import br.com.fiap.savvyfix.service.CompraService;
 import br.com.fiap.savvyfix.service.EnderecoService;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,6 @@ import java.util.List;
 
 @Controller
 @RequestMapping(value = "/clientes", produces = "application/json")
-@Tag(name = "savvyfix-api-mvc")
 @SessionAttributes("clienteLogado")
 public class ClienteController {
 
