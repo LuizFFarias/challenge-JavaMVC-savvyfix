@@ -19,12 +19,15 @@
 <br>
 
 ## Diagrama de classes
-![DiagramaClasses](https://github.com/user-attachments/assets/8f891bd6-4aed-4bf5-8618-764044926ff4)
+![DiagramaDeClasses](https://github.com/user-attachments/assets/ec004b70-08e7-4c68-8690-d93a9d32ea48)
+
+
 
 <br>
 
 ## Arquitetura do sistema
 ![Arquitetura_Java](https://github.com/user-attachments/assets/9c992f51-3f8a-4808-83d7-eab1ad0d10e6)
+
 
 
 
