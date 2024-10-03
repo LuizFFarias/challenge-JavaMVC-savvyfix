@@ -1,7 +1,11 @@
 package br.com.fiap.savvyfix.controller;
 
+import br.com.fiap.savvyfix.model.Atividades;
+import br.com.fiap.savvyfix.model.Cliente;
 import br.com.fiap.savvyfix.model.Produto;
+import br.com.fiap.savvyfix.service.AtividadesService;
 import br.com.fiap.savvyfix.service.ProdutoService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Collection;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/produtos", produces = "application/json")
@@ -22,12 +27,30 @@ public class ProdutoController {
 	@Autowired
 	private ProdutoService service;
 
+	@Autowired
+	private AtividadesService serviceAtv;
+
 	@GetMapping()
-	private ModelAndView findAll() {
+	private ModelAndView findAll(HttpServletRequest request) {
+		// Recupera o cliente da sessão
+		Cliente clienteLogado = (Cliente) request.getSession().getAttribute("clienteLogado");
+
+		// Se o cliente não estiver logado, redireciona para a página de login
+		if (clienteLogado == null) {
+			return new ModelAndView("redirect:/clientes/login_cliente");
+		}
+
+		// Busca os produtos e atividades associados ao cliente logado
 		Collection<Produto> produtos = service.findAll();
+		List<Atividades> atividades = serviceAtv.findByClienteId(clienteLogado.getId());
+
+		// Prepara o ModelAndView com os produtos e atividades
 		ModelAndView mv = new ModelAndView("produtos");
 		mv.addObject("produtos", produtos);
-        return mv;
+		mv.addObject("atividades", atividades);
+		mv.addObject("cliente", clienteLogado); // Adiciona o cliente logado para a view, se necessário
+
+		return mv;
     }
 
 	@GetMapping("/{id}")

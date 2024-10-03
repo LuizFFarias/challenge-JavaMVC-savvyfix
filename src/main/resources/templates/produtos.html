@@ -40,10 +40,20 @@
                             <span class="d-inline">Marca: </span>
                             <span class="d-inline" th:text="${item.getMarca()}"></span>
                         </p>
-                        <p class="card-text fs-5" >
-                            <span class="d-inline">R$: </span>
-                            <span class="d-inline" th:text="${item.getPrecoFixo()}"></span>
+                        <p class="card-text fs-5">
+                            <span class="d-inline" th:if="${atividades == null or atividades.size() == 0}">R$: </span>
+                            <span  class="d-inline" th:if="${atividades == null or atividades.size() == 0}" th:text="${item.getPrecoFixo()}"></span>
+                            <span class="d-inline" th:each="atividade : ${atividades}" th:if="${atividade.produto.id == item.id}">
+                                De -
+                                <s class="preco-antigo">R$: </s>
+                                <s class="preco-antigo" th:text="${item.getPrecoFixo()}"></s>
+                            </span>
                         </p>
+                        <p class="card-text fs-5" th:each="atividade : ${atividades}">
+                            <span class="d-inline preco-alterado" th:if="${atividade.produto.id == item.id}">Por - R$: </span>
+                            <span class="d-inline preco-alterado" th:if="${atividade.produto.id == item.id}" th:text="${atividade.precoVariado}"></span>
+                        </p>
+
                         <a th:href="@{/compras/confirmar_compra/{id}(id=${item.getId()})}" class="btn btn-comprar float-end m-4" th:text="#{comprar}">Comprar</a>
                     </div>
                 </div>

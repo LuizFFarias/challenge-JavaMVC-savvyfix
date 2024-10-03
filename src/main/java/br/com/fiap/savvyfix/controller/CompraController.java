@@ -14,6 +14,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -48,64 +50,101 @@ public class CompraController {
     }
 
     @PostMapping("/finalizar_compra")
-    private ModelAndView save( Compra compra, BindingResult bd, @ModelAttribute("clienteLogado") Cliente clienteLogado, @RequestParam("produto.id") Long idProd){
+    private ModelAndView save(Compra compra, BindingResult bd, @ModelAttribute("clienteLogado") Cliente clienteLogado, @RequestParam("produto.id") Long idProd) {
 
-            if (compra.getQntdProd() == null){
-                ModelAndView mv = new ModelAndView("compra");
-                mv.addObject("compra", compra);
-                return mv;
+        if (compra.getQntdProd() == null){
+            ModelAndView mv = new ModelAndView("compra");
+            mv.addObject("compra", compra);
+            return mv;
+        }
+        Cliente clie = serviceClie.findByCpf(clienteLogado.getCpf());
+        if(clie == null) {
+            ModelAndView mv = new ModelAndView("compra");
+            mv.addObject("compra", compra);
+            return mv;
+        }
+
+        Produto produto = serviceProd.findById(idProd);
+        if (produto == null){
+            ModelAndView mv = new ModelAndView("compra");
+            mv.addObject("compra", compra);
+            return mv;
+        }
+
+        compra.setProduto(produto);
+        compra.setEspecificacoes(produto.getDescricao());
+        compra.setNomeProd(produto.getNome());
+        compra.setCliente(clie);
+
+        BigDecimal valorFinal;
+        List<Atividades> atividades = serviceAtv.findByClienteId(clie.getId());
+        if (!atividades.isEmpty()){
+            for (Atividades atv : atividades){
+                if (atv.getProduto().getId() == produto.getId()){
+                    BigDecimal precoVariado = BigDecimal.valueOf(atv.getPrecoVariado());
+                    BigDecimal qntdProd = BigDecimal.valueOf(compra.getQntdProd());
+                    valorFinal = precoVariado.multiply(qntdProd).setScale(2, RoundingMode.HALF_EVEN);
+                    compra.setValorCompra(valorFinal.floatValue());
+                    compra.setAtividades(atv);
+
+                    atv.setPrecoVariado(produto.getPrecoFixo() - (produto.getPrecoFixo() * 0.1f));
+                    atv.setHorarioAtual(LocalTime.now());
+                    atv.setDemanda("Al");
+                    atv.setQntdProcura(atv.getQntdProcura() + 1);
+                    serviceAtv.save(atv);
+                } else {
+                    valorFinal = BigDecimal.valueOf(produto.getPrecoFixo())
+                            .multiply(BigDecimal.valueOf(compra.getQntdProd()))
+                            .setScale(2, RoundingMode.HALF_EVEN);
+                    compra.setValorCompra(valorFinal.floatValue());
+
+                    // Simulação de análise dos dados das atividades e adicionando 10% de desconto na próxima compra
+                    BigDecimal precoDesconto = BigDecimal.valueOf(produto.getPrecoFixo())
+                            .multiply(BigDecimal.valueOf(0.9))
+                            .setScale(2, RoundingMode.HALF_EVEN);
+
+                    Atividades novaAtividade = Atividades.builder()
+                            .cliente(clie)
+                            .precoVariado(precoDesconto.floatValue())
+                            .demanda("Al")
+                            .qntdProcura(120)
+                            .climaAtual("Calor")
+                            .localizacaoAtual(clie.getEndereco().getBairro())
+                            .horarioAtual(LocalTime.now())
+                            .produto(produto)
+                            .build();
+
+                    serviceAtv.save(novaAtividade);
+                }
             }
-            Cliente clie = serviceClie.findByCpf(clienteLogado.getCpf());
-            if(clie == null) {
-                ModelAndView mv = new ModelAndView("compra");
-                mv.addObject("compra", compra);
-                return mv;
-            }
+        } else {
+            valorFinal = BigDecimal.valueOf(produto.getPrecoFixo())
+                    .multiply(BigDecimal.valueOf(compra.getQntdProd()))
+                    .setScale(2, RoundingMode.HALF_EVEN);
+            compra.setValorCompra(valorFinal.floatValue());
 
-            Produto produto = serviceProd.findById(idProd);
-            if (produto == null){
-                ModelAndView mv = new ModelAndView("compra");
-                mv.addObject("compra", compra);
-                return mv;
-            }
+            // Simulação de análise dos dados das atividades e adicionando 10% de desconto na próxima compra
+            BigDecimal precoDesconto = BigDecimal.valueOf(produto.getPrecoFixo())
+                    .multiply(BigDecimal.valueOf(0.9))
+                    .setScale(2, RoundingMode.HALF_EVEN);
 
-            compra.setProduto(produto);
-            compra.setEspecificacoes(produto.getDescricao());
-            compra.setNomeProd(produto.getNome());
-            compra.setCliente(clie);
+            Atividades novaAtividade = Atividades.builder()
+                    .cliente(clie)
+                    .precoVariado(precoDesconto.floatValue())
+                    .demanda("Al")
+                    .qntdProcura(120)
+                    .climaAtual("Calor")
+                    .localizacaoAtual(clie.getEndereco().getBairro())
+                    .horarioAtual(LocalTime.now())
+                    .produto(produto)
+                    .build();
 
-            Float valorFinal;
-            Atividades atividades = serviceAtv.findFirstByClienteIdOrderByIdDesc(clie.getId());
-            if (atividades != null){
-                compra.setValorCompra(atividades.getPrecoVariado() * compra.getQntdProd());
-                compra.setAtividades(atividades);
-                atividades.setPrecoVariado(produto.getPrecoFixo() - (produto.getPrecoFixo() * 0.1f));
-                atividades.setHorarioAtual(LocalTime.now());
-                atividades.setDemanda("Al");
-                atividades.setQntdProcura(atividades.getQntdProcura() + 1);
-                serviceAtv.save(atividades);
-            } else {
-                valorFinal = produto.getPrecoFixo() * compra.getQntdProd();
-                compra.setValorCompra(valorFinal);
+            serviceAtv.save(novaAtividade);
+        }
 
-                // Simulação de análise dos dados das atividades e adicionando 10% de desconto na próxima compra
-                var precoDesconto = produto.getPrecoFixo() - (produto.getPrecoFixo() * 0.1);
 
-                Atividades atv = Atividades.builder()
-                        .cliente(clie)
-                        .precoVariado((float)precoDesconto)
-                        .demanda("Al")
-                        .qntdProcura(120)
-                        .climaAtual("Calor")
-                        .localizacaoAtual(clie.getEndereco().getBairro())
-                        .horarioAtual(LocalTime.now())
-                        .build();
-
-                serviceAtv.save(atv);
-            }
-            service.save(compra);
-            return new ModelAndView("redirect:/compras/historico_compras/" + clie.getId());
-
+        service.save(compra);
+        return new ModelAndView("redirect:/compras/historico_compras/" + clie.getId());
     }
 
     @GetMapping("/historico_compras/{id}")
