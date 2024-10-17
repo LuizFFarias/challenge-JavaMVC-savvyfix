@@ -78,20 +78,20 @@ public class ClienteController {
         return mv;
     }
 
-    @PostMapping("/logar_cliente")
-    private ModelAndView logar(@RequestParam String cpf, @RequestParam String senha, HttpServletRequest request){
-            request.getSession().invalidate();
-
-            Cliente clieLogin = service.findByCpf(cpf);
-
-            if(clieLogin == null || !clieLogin.getSenha().equals(senha)){
-                return new ModelAndView("redirect:/clientes/login_cliente");
-
-            } else {
-                request.getSession().setAttribute("clienteLogado", clieLogin);
-                return new ModelAndView("redirect:/produtos");
-            }
-        }
+//    @PostMapping("/logar_cliente")
+//    private ModelAndView logar(@RequestParam String cpf, @RequestParam String senha, HttpServletRequest request){
+//            request.getSession().invalidate();
+//
+//            Cliente clieLogin = service.findByCpf(cpf);
+//
+//            if(clieLogin == null || !clieLogin.getSenha().equals(senha)){
+//                return new ModelAndView("redirect:/clientes/login_cliente");
+//
+//            } else {
+//                request.getSession().setAttribute("clienteLogado", clieLogin);
+//                return new ModelAndView("redirect:/produtos");
+//            }
+//        }
 
     @GetMapping("/editar_cliente/{id}")
     public ModelAndView returnEditar(@PathVariable Long id) {
@@ -169,6 +169,11 @@ public class ClienteController {
         }
         return new ModelAndView("redirect:/");
 
+    }
+
+    @GetMapping("/acesso_negado")
+    public ModelAndView retornaAcessoNegado(){
+        return new ModelAndView("acesso_negado");
     }
 
 }
