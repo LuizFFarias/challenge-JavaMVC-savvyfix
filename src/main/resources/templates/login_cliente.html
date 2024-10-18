@@ -23,25 +23,29 @@
 <div class="ronded-pill titulo mx-auto mt-5">
   <h1 class="display-5 text-center pb-3 pt-3" >LOGIN</h1>
 </div>
-<form class="card-body mx-auto formulario mt-5" style="width: 40rem;" th:object="${cliente}" action="/clientes/logar_cliente" method="post">
+<form class="card-body mx-auto formulario mt-5" style="width: 40rem;" th:action="@{/clientes/login_cliente}" method="post">
   <div class="mb-3">
-    <label class="form-label" for="cpf">CPF: </label>
-    <input type="text" class="form-control border border-secondary" th:field="*{cpf}" id="cpf" aria-describedby="cpf" required>
+    <label class="form-label" for="username">CPF: </label>
+    <input type="text" class="form-control border border-secondary" id="username" name="username" aria-describedby="cpf" required>
     <div id="cpfHelp" class="form-text" th:text="#{aviso.cpf}">Digite apenas os números</div>
   </div>
   <div class="mb-3">
-    <label class="form-label font-monospace" for="SenhaClie" th:text="#{senha}">Senha:</label>
-    <input type="password" class="form-control border border-secondary" th:field="*{senha}" id="SenhaClie" required>
+    <label class="form-label font-monospace" for="password" th:text="#{senha}">Senha:</label>
+    <input type="password" class="form-control border border-secondary" id="password" name="password" required>
   </div>
-
-  <!-- Mensagem de erro genérica -->
-  <div class="alert alert-danger" th:if="${erro}" th:text="${erro}"></div>
 
   <button type="submit" class="btn btn-confirmar">Login</button>
   <a href="/" class="btn btn-danger ml-auto float-end" th:text="#{voltar}">Voltar</a>
 </form>
 <div class="text-end mt-2 cadastre-se mb-5">
   <a href="/clientes/cadastro_cliente" class="text-decoration-none" th:text="#{cadastre.se}">Cadastre-se aqui!</a>
+</div>
+
+<div th:if="${param.erro}">
+  <p style="color: red"><span>Usuário ou senha incorretos</span></p>
+</div>
+<div th:if="${param.logout}">
+  <p style="color: green;"><span> Você saiu com sucesso</span></p>
 </div>
 
 <nav class="rodape">

@@ -23,6 +23,9 @@ public class UsuarioUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String cpf) throws UsernameNotFoundException {
 
         Cliente cliente = clienteRep.findByCpf(cpf);
+        if (cliente == null) {
+            throw new UsernameNotFoundException("Usuário não encontrado");
+        }
 
         return new User(cliente.getCpf(), cliente.getSenha(), cliente.getRoles().stream().map(role ->
                         new SimpleGrantedAuthority(role.getNome())).collect(Collectors.toList()));

@@ -72,10 +72,9 @@ public class ClienteController {
     }
 
     @GetMapping("/login_cliente")
-    private ModelAndView login(){
-        ModelAndView mv = new ModelAndView("login_cliente");
-        mv.addObject("cliente", new Cliente());
-        return mv;
+    public String login(){
+
+        return "login_cliente";
     }
 
 //    @PostMapping("/logar_cliente")

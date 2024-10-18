@@ -40,7 +40,7 @@ public class Cliente {
     @Column(name = "CPF_CLIE", nullable = false, length = 11)
     private String cpf;
 
-    @Column(name = "SENHA_CLIE", nullable = false, length = 50 )
+    @Column(name = "SENHA_CLIE", nullable = false, length = 200 )
     @NotEmpty(message = "{cliente.senha.validar_vazio}")
     private  String senha;
 

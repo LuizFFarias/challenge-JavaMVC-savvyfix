@@ -16,7 +16,7 @@ insert into Cliente (id_cliente, nm_clie, cpf_clie, senha_clie, id_endereco) val
 insert into Cliente (id_cliente, nm_clie, cpf_clie, senha_clie, id_endereco) values (144, 'Matheus Luan Fogaça', 55533248072, 'RMEzoAw3OlOgDri', 764);
 insert into Cliente (id_cliente, nm_clie, cpf_clie, senha_clie, id_endereco) values (642, 'Pedro Henrique Márcio Costa', 28175653043, 's8histwMgcK7TLA', 116);
 insert into Cliente (id_cliente, nm_clie, cpf_clie, senha_clie, id_endereco) values (993, 'Benedita Simone Melissa da Cunha', 42869783035, '6hYQnI0A7dBmJO8', 344);
-insert into Cliente (id_cliente, nm_clie, cpf_clie, senha_clie, id_endereco) values (1, 'Luiz Fillipe Farias', 48951543862, '$2a$12$VVNhvcnwB01Th08rxFeeQe7pLGSUFAZaNPCCF39NBRmjWsBVHRWVG ', 1);
+insert into Cliente (id_cliente, nm_clie, cpf_clie, senha_clie, id_endereco) values (1, 'Luiz Fillipe Farias', 48951543862, '$2a$12$VVNhvcnwB01Th08rxFeeQe7pLGSUFAZaNPCCF39NBRmjWsBVHRWVG', 1);
 
 insert into Atividades (id_atividades, preco_variado, horario_atual, localizacao_atual, clima_atual, qntd_procura, demanda_produto, id_cliente, id_produto) values (435, 132.58, '10:31:57.12', 'Bairro Industrial', 'Frio', 2, 'Ba', 877, 625);
 insert into Atividades (id_atividades, preco_variado, horario_atual, localizacao_atual, clima_atual, qntd_procura, demanda_produto, id_cliente, id_produto) values (493, 174.60, '15:49:26.12', 'Bairro Santos Dumont', 'Calor', 3, 'Ba', 136, 830);
@@ -30,7 +30,7 @@ insert into Compra (id_compra, nm_prod, qntd_prod, valor_compra, especificacao_p
 insert into Compra (id_compra, nm_prod, qntd_prod, valor_compra, especificacao_prod, id_atividades, id_cliente, id_prod) values (216, 'Tenis Plataforma', 7, 322.78, 'Tam 34, 35, 37, 37, 38, 39, 40', 932, 642, 182);
 insert into Compra (id_compra, nm_prod, qntd_prod, valor_compra, especificacao_prod, id_atividades, id_cliente, id_prod) values (560, 'Tenis Chunky Sneakers', 1, 458.97, 'Tamanho 36', 108, 993, 644);
 
-insert into Role(nome) values ('ROLE_USER');
-insert into Role(nome) values ('ROLE_ADMIN');
+insert into Role(id_role, nome_role) values (1, 'ROLE_USER');
+insert into Role(id_role, nome_role) values (2, 'ROLE_ADMIN');
 
-insert into Cliente_Role (id_role, id_cliente) values (1, 2);
+insert into Cliente_Role (id_role, id_cliente) values (1, 1);
