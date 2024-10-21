@@ -9,6 +9,8 @@ import br.com.fiap.savvyfix.service.ClienteService;
 import br.com.fiap.savvyfix.service.CompraService;
 import br.com.fiap.savvyfix.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -37,11 +39,17 @@ public class CompraController {
     private ClienteService serviceClie;
 
     @GetMapping("/confirmar_compra/{id}")
-    private ModelAndView save(@PathVariable Long id, @ModelAttribute("clienteLogado") Cliente clienteLogado){
+    private ModelAndView save(@PathVariable Long id){
         Produto produto = serviceProd.findById(id);
         if (produto == null) {
             return new ModelAndView("redirect:/produtos");
         }
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String cpf = auth.getName();
+
+        Cliente clienteLogado = serviceClie.findByCpf(cpf);
+
         ModelAndView mv = new ModelAndView("compra");
         mv.addObject("produto", produto);
         mv.addObject("compra", new Compra());
@@ -50,14 +58,19 @@ public class CompraController {
     }
 
     @PostMapping("/finalizar_compra")
-    private ModelAndView save(Compra compra, BindingResult bd, @ModelAttribute("clienteLogado") Cliente clienteLogado, @RequestParam("produto.id") Long idProd) {
+    private ModelAndView save(Compra compra, BindingResult bd, @RequestParam("produto.id") Long idProd) {
 
         if (compra.getQntdProd() == null){
             ModelAndView mv = new ModelAndView("compra");
             mv.addObject("compra", compra);
             return mv;
         }
-        Cliente clie = serviceClie.findByCpf(clienteLogado.getCpf());
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        String cpf = auth.getName();
+
+        Cliente clie = serviceClie.findByCpf(cpf);
         if(clie == null) {
             ModelAndView mv = new ModelAndView("compra");
             mv.addObject("compra", compra);

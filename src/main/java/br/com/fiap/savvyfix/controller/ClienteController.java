@@ -9,12 +9,15 @@ import br.com.fiap.savvyfix.service.EnderecoService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Controller
@@ -34,6 +37,9 @@ public class ClienteController {
     @Autowired
     private CompraService serviceCpr;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @GetMapping("/cadastro_cliente")
     private ModelAndView save(){
         ModelAndView mv = new ModelAndView("cadastro_cliente");
@@ -42,7 +48,7 @@ public class ClienteController {
     }
 
     @PostMapping("/insere_cliente")
-    private ModelAndView save(@Valid Cliente cliente, BindingResult bd){
+    private ModelAndView save(@Valid Cliente cliente, BindingResult bd, Long id_role){
         if(bd.hasErrors()){
             ModelAndView mv = new ModelAndView("cadastro_cliente");
             return mv;
@@ -55,6 +61,9 @@ public class ClienteController {
             mv.addObject("erro", "CPF já cadastrado");
             return mv;
         }
+
+        cliente.setSenha(passwordEncoder.encode(cliente.getSenha()));
+
 
         Endereco endereco = cliente.getEndereco();
         if(endereco == null){
@@ -76,21 +85,6 @@ public class ClienteController {
 
         return "login_cliente";
     }
-
-//    @PostMapping("/logar_cliente")
-//    private ModelAndView logar(@RequestParam String cpf, @RequestParam String senha, HttpServletRequest request){
-//            request.getSession().invalidate();
-//
-//            Cliente clieLogin = service.findByCpf(cpf);
-//
-//            if(clieLogin == null || !clieLogin.getSenha().equals(senha)){
-//                return new ModelAndView("redirect:/clientes/login_cliente");
-//
-//            } else {
-//                request.getSession().setAttribute("clienteLogado", clieLogin);
-//                return new ModelAndView("redirect:/produtos");
-//            }
-//        }
 
     @GetMapping("/editar_cliente/{id}")
     public ModelAndView returnEditar(@PathVariable Long id) {

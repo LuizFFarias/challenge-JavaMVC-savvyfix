@@ -74,6 +74,8 @@
         <input type="text" th:field="*{endereco.pais}" th:errorclass="is-invalid" class="form-control border border-secondary" id="PaisEndereco" required>
         <div class="invalid-feedback" th:errors="*{endereco.pais}"></div>
     </div>
+    <input type="hidden" th:field="*{roles}" th:value="2">
+    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
         <button type="submit" class="btn btn-confirmar" th:text="#{cadastrar}">Cadastrar</button>
         <a href="/" class="btn btn-danger ml-auto float-end" th:text="#{voltar}">Voltar</a>
 </form>
