@@ -28,8 +28,7 @@ public class AtividadesService implements  ServiceDTO<Atividades>{
 
     public List<Atividades> findByClienteId(Long clienteId) {return repo.findByClienteId(clienteId);}
 
-    public Atividades findFirstByClienteIdOrderByIdDesc(Long id){return repo.findFirstByClienteIdOrderByIdDesc(id);}
-
+    public List<Atividades> findByProdutoId(Long produtoId) {return repo.findByProdutoId(produtoId);}
     public void deleteById(Long id){repo.deleteById(id);}
 
 

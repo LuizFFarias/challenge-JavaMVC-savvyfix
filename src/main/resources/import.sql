@@ -10,6 +10,7 @@ insert into Endereco (id_endereco, cep_endereco, rua_endereco, num_endereco, bai
 insert into Endereco (id_endereco, cep_endereco, rua_endereco, num_endereco, bairro_endereco, cidade_endereco, estado_endereco, pais) values (116, 79841510, 'Rua Venezuela', 20, 'Parque das Nações', 'Dourado', 'MS', 'Bra');
 insert into Endereco (id_endereco, cep_endereco, rua_endereco, num_endereco, bairro_endereco, cidade_endereco, estado_endereco, pais) values (344, 58068183, 'Rua José Pereira de Lima Filho', 25, 'Bairro Gramame', 'Joao Pessoa', 'PB', 'BRA');
 insert into Endereco (id_endereco, cep_endereco, rua_endereco, num_endereco, bairro_endereco, cidade_endereco, estado_endereco, pais) values (999, 58068183, 'Rua José Pereira de Lima Filho', 25, 'Bairro Gramame', 'Joao Pessoa', 'PB', 'BRA');
+insert into Endereco (id_endereco, cep_endereco, rua_endereco, num_endereco, bairro_endereco, cidade_endereco, estado_endereco, pais) values (998, 58068183, 'Rua José Pereira de Lima Filho', 25, 'Bairro Gramame', 'Joao Pessoa', 'PB', 'BRA');
 
 insert into Cliente (id_cliente, nm_clie, cpf_clie, senha_clie, id_endereco) values (877, 'Lorenzo Giovanni Calebe Ferreira', 26019118088, 'MPRFuQYLWSfN0iU', 811);
 insert into Cliente (id_cliente, nm_clie, cpf_clie, senha_clie, id_endereco) values (136, 'Eduardo Bruno Leandro Gonçalves', 84214739051, 'L6WneERuzRiEtko', 734);
@@ -17,6 +18,8 @@ insert into Cliente (id_cliente, nm_clie, cpf_clie, senha_clie, id_endereco) val
 insert into Cliente (id_cliente, nm_clie, cpf_clie, senha_clie, id_endereco) values (642, 'Pedro Henrique Márcio Costa', 28175653043, 's8histwMgcK7TLA', 116);
 insert into Cliente (id_cliente, nm_clie, cpf_clie, senha_clie, id_endereco) values (993, 'Benedita Simone Melissa da Cunha', 42869783035, '6hYQnI0A7dBmJO8', 344);
 insert into Cliente (id_cliente, nm_clie, cpf_clie, senha_clie, id_endereco) values (999, 'Luiz Fillipe Farias', 48951543862, '$2a$12$VVNhvcnwB01Th08rxFeeQe7pLGSUFAZaNPCCF39NBRmjWsBVHRWVG', 999);
+insert into Cliente (id_cliente, nm_clie, cpf_clie, senha_clie, id_endereco) values (998, 'Luiz Fillipe Farias', 93040322613, '$2a$12$VVNhvcnwB01Th08rxFeeQe7pLGSUFAZaNPCCF39NBRmjWsBVHRWVG', 998);
+
 
 insert into Atividades (id_atividades, preco_variado, horario_atual, localizacao_atual, clima_atual, qntd_procura, demanda_produto, id_cliente, id_produto) values (435, 132.58, '10:31:57.12', 'Bairro Industrial', 'Frio', 2, 'Ba', 877, 625);
 insert into Atividades (id_atividades, preco_variado, horario_atual, localizacao_atual, clima_atual, qntd_procura, demanda_produto, id_cliente, id_produto) values (493, 174.60, '15:49:26.12', 'Bairro Santos Dumont', 'Calor', 3, 'Ba', 136, 830);
@@ -34,3 +37,4 @@ insert into Role(id_role, nome_role) values (1, 'ROLE_USER');
 insert into Role(id_role, nome_role) values (2, 'ROLE_ADMIN');
 
 insert into Cliente_Role (id_role, id_cliente) values (1, 999);
+insert into Cliente_Role (id_role, id_cliente) values (2, 998);
