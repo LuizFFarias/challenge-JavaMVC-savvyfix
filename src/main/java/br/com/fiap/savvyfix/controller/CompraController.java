@@ -58,7 +58,7 @@ public class CompraController {
         ModelAndView mv = new ModelAndView("compra");
         mv.addObject("produto", produto);
         mv.addObject("compra", new Compra());
-        mv.addObject("clienteLogado", clienteLogado);
+        mv.addObject("cliente", clienteLogado);
         return mv;
     }
 
@@ -176,22 +176,23 @@ public class CompraController {
     }
 
     @GetMapping("/historico_compras/{id}")
-    private ModelAndView historico(@PathVariable Long id, @ModelAttribute("clienteLogado") Cliente cliente){
-
+    private ModelAndView historico(@PathVariable Long id) {
         List<Compra> compras = service.findByClienteId(id);
-        Cliente cliente1 = serviceClie.findById(id);
+        Cliente cliente = serviceClie.findById(id);
+        ModelAndView mv = new ModelAndView("historico_compras");
 
-        if (compras.isEmpty() || cliente1 == null) {
-            ModelAndView mv = new ModelAndView("historico_compras");
+        boolean possuiCompras = !compras.isEmpty();
+        mv.addObject("possuiCompras", possuiCompras);
+        mv.addObject("cliente", cliente);
+
+        if (!compras.isEmpty()) {
+            mv.addObject("compras", compras);
+        } else {
             mv.addObject("mensagem", "Nenhuma compra encontrada.");
-            return mv;
         }
 
-        ModelAndView mv = new ModelAndView("historico_compras");
-        mv.addObject("compras", compras);
-        mv.addObject("cliente", cliente1);
         return mv;
-
     }
+
 
 }

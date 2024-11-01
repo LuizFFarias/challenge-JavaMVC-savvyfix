@@ -18,7 +18,7 @@ insert into Cliente (id_cliente, nm_clie, cpf_clie, senha_clie, id_endereco) val
 insert into Cliente (id_cliente, nm_clie, cpf_clie, senha_clie, id_endereco) values (642, 'Pedro Henrique Márcio Costa', 28175653043, 's8histwMgcK7TLA', 116);
 insert into Cliente (id_cliente, nm_clie, cpf_clie, senha_clie, id_endereco) values (993, 'Benedita Simone Melissa da Cunha', 42869783035, '6hYQnI0A7dBmJO8', 344);
 insert into Cliente (id_cliente, nm_clie, cpf_clie, senha_clie, id_endereco) values (999, 'Luiz Fillipe Farias', 48951543862, '$2a$12$VVNhvcnwB01Th08rxFeeQe7pLGSUFAZaNPCCF39NBRmjWsBVHRWVG', 999);
-insert into Cliente (id_cliente, nm_clie, cpf_clie, senha_clie, id_endereco) values (998, 'Luiz Fillipe Farias', 93040322613, '$2a$12$VVNhvcnwB01Th08rxFeeQe7pLGSUFAZaNPCCF39NBRmjWsBVHRWVG', 998);
+insert into Cliente (id_cliente, nm_clie, cpf_clie, senha_clie, id_endereco) values (998, 'Admin', 93040322613, '$2a$12$VVNhvcnwB01Th08rxFeeQe7pLGSUFAZaNPCCF39NBRmjWsBVHRWVG', 998);
 
 
 insert into Atividades (id_atividades, preco_variado, horario_atual, localizacao_atual, clima_atual, qntd_procura, demanda_produto, id_cliente, id_produto) values (435, 132.58, '10:31:57.12', 'Bairro Industrial', 'Frio', 2, 'Ba', 877, 625);

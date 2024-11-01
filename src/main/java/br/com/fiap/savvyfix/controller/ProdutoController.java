@@ -90,7 +90,12 @@ public class ProdutoController {
 	}
 	@GetMapping("/adiciona_produto")
 	private ModelAndView save(){
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String cpf = auth.getName();
+		Cliente clienteLogado = serviceCliente.findByCpf(cpf);
+
 		ModelAndView mv = new ModelAndView("adiciona_produto");
+		mv.addObject("cliente", clienteLogado);
 		mv.addObject("produto", new Produto());
 		return mv;
 	}
@@ -114,12 +119,17 @@ public class ProdutoController {
 	@GetMapping("/editar_produto/{id}")
 	public ModelAndView returnEditar(@PathVariable Long id) {
 
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String cpf = auth.getName();
+		Cliente clienteLogado = serviceCliente.findByCpf(cpf);
+
 		Produto produto = service.findById(id);
 
 		if (produto == null) {
 			return new ModelAndView("redirect:/produtos");
 		} else {
 			ModelAndView mv = new ModelAndView("edita_produto");
+			mv.addObject("cliente", clienteLogado);
 			mv.addObject("produto", produto);
 			return mv;
 		}
