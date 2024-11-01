@@ -15,7 +15,7 @@
   <h5 class="text-white fs-5 mt-2">Olá, <span><a class="text-white fs-5 mt-2" th:href="@{compras/historico_compras/{id}(id = ${cliente.id}) }" th:text="${cliente.nome}"></a></span>!</h5>
   <a href="/"><img src="/images/ic_savvyfix.png" class="img-cabecalho"></a>
   <form th:action="@{/logout}" method="post">
-    <button type="submit" class="btn btn-comprar float-end m-4" style="float: right">Sair</button>
+    <button type="submit" class="btn btn-comprar float-end m-4" style="float: right" th:text="#{sair}">Sair</button>
   </form>
 </nav>
 
