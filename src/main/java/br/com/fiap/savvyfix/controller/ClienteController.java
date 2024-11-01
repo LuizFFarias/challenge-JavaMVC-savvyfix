@@ -2,6 +2,7 @@ package br.com.fiap.savvyfix.controller;
 
 
 import br.com.fiap.savvyfix.model.*;
+import br.com.fiap.savvyfix.repository.RoleRepository;
 import br.com.fiap.savvyfix.service.AtividadesService;
 import br.com.fiap.savvyfix.service.ClienteService;
 import br.com.fiap.savvyfix.service.CompraService;
@@ -9,6 +10,8 @@ import br.com.fiap.savvyfix.service.EnderecoService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -38,12 +41,25 @@ public class ClienteController {
     private CompraService serviceCpr;
 
     @Autowired
+    private RoleRepository roleRepo;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @GetMapping("/cadastro_cliente")
     private ModelAndView save(){
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String cpf = auth.getName();
+        Cliente clienteLogado = service.findByCpf(cpf);
+
+        boolean isAdmin = clienteLogado.getRoles().stream()
+                .anyMatch(role -> role.getNome().equals("ROLE_ADMIN"));
+
         ModelAndView mv = new ModelAndView("cadastro_cliente");
         mv.addObject("cliente", new Cliente());
+        mv.addObject("isadmin", isAdmin );
+        mv.addObject("roles", roleRepo.findAll());
         return mv;
     }
 
