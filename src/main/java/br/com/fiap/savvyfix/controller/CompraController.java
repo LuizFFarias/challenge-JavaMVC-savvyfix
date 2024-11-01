@@ -1,5 +1,6 @@
 package br.com.fiap.savvyfix.controller;
 
+import br.com.fiap.savvyfix.mensageria.ProdutorRabbitMQ;
 import br.com.fiap.savvyfix.model.Atividades;
 import br.com.fiap.savvyfix.model.Cliente;
 import br.com.fiap.savvyfix.model.Compra;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -37,6 +39,9 @@ public class CompraController {
 
     @Autowired
     private ClienteService serviceClie;
+
+    @Autowired
+    private ProdutorRabbitMQ produtorRabbitMQ;
 
     @GetMapping("/confirmar_compra/{id}")
     private ModelAndView save(@PathVariable Long id){
@@ -89,6 +94,8 @@ public class CompraController {
         compra.setNomeProd(produto.getNome());
         compra.setCliente(clie);
 
+        Long atividadeId = 0L;
+        
         BigDecimal valorFinal;
         List<Atividades> atividades = serviceAtv.findByClienteId(clie.getId());
         if (!atividades.isEmpty()){
@@ -105,6 +112,7 @@ public class CompraController {
                     atv.setDemanda("Al");
                     atv.setQntdProcura(atv.getQntdProcura() + 1);
                     serviceAtv.save(atv);
+                    atividadeId = atv.getId();
                 } else {
                     valorFinal = BigDecimal.valueOf(produto.getPrecoFixo())
                             .multiply(BigDecimal.valueOf(compra.getQntdProd()))
@@ -128,6 +136,7 @@ public class CompraController {
                             .build();
 
                     serviceAtv.save(novaAtividade);
+                    atividadeId = novaAtividade.getId();
                 }
             }
         } else {
@@ -153,7 +162,13 @@ public class CompraController {
                     .build();
 
             serviceAtv.save(novaAtividade);
+            atividadeId = novaAtividade.getId();
         }
+
+        String msg = "Compra realizada com sucesso! Informações da compra, Produto: " + produto.getNome() + "; Quantidade: " + compra.getQntdProd() +
+                "; Especificações: " + compra.getEspecificacoes() + "; CPF do cliente: " + clie.getCpf() + "; Id da Atividade: " + atividadeId + "; Horário da compra: " + LocalDate.now() + "; Enviado para Cep:" + clie.getEndereco().getCep() + "; Rua: " + clie.getEndereco().getRua() +
+                "; Número: " + clie.getEndereco().getNumero() + "; Valor da compra: " + compra.getValorCompra();
+        produtorRabbitMQ.enviarMensagem(msg);
 
 
         service.save(compra);

@@ -165,8 +165,8 @@ public class ClienteController {
     }
 
     @GetMapping("/acesso_negado")
-    public ModelAndView retornaAcessoNegado(){
-        return new ModelAndView("acesso_negado");
+    public String retornaAcessoNegado(){
+        return("acesso_negado");
     }
 
 }

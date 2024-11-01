@@ -21,7 +21,7 @@ public class SecurityConfig {
                 .formLogin((form) -> form.loginPage("/clientes/login_cliente").defaultSuccessUrl("/", true).permitAll())
                 .logout((logout) -> logout.logoutUrl("/logout").logoutSuccessUrl("/clientes/login_cliente?logout=true").permitAll())
                 .exceptionHandling((exception) ->
-                        exception.accessDeniedHandler(((request, response, accessDeniedException) -> {response.sendRedirect("/acesso_negado");}))
+                        exception.accessDeniedHandler(((request, response, accessDeniedException) -> {response.sendRedirect("/clientes/acesso_negado");}))
                         );
 
         return http.build();
