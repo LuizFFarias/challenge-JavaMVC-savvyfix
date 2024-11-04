@@ -51,15 +51,21 @@ public class ClienteController {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String cpf = auth.getName();
-        Cliente clienteLogado = service.findByCpf(cpf);
 
-        boolean isAdmin = clienteLogado.getRoles().stream()
-                .anyMatch(role -> role.getNome().equals("ROLE_ADMIN"));
+        if(cpf != "anonymousUser"){
+            Cliente clienteLogado = service.findByCpf(cpf);
+            boolean isAdmin = clienteLogado.getRoles().stream()
+                    .anyMatch(role -> role.getNome().equals("ROLE_ADMIN"));
+            ModelAndView mv = new ModelAndView("cadastro_cliente");
+            mv.addObject("cliente", new Cliente());
+            mv.addObject("isadmin", isAdmin );
+            mv.addObject("roles", roleRepo.findAll());
+            return mv;
 
+        }
         ModelAndView mv = new ModelAndView("cadastro_cliente");
         mv.addObject("cliente", new Cliente());
-        mv.addObject("isadmin", isAdmin );
-        mv.addObject("roles", roleRepo.findAll());
+        mv.addObject("isadmin", false);
         return mv;
     }
 

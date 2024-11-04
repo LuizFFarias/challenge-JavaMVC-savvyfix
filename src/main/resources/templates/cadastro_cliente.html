@@ -7,7 +7,7 @@
 <div class="ronded-pill titulo mx-auto mt-5">
     <h1 class="display-5 text-center pb-3 pt-3" th:text="#{cadastro}">CADASTRO</h1>
 </div>
-<form class="card-body mx-auto formulario mt-5" style="width: 40rem;" th:object="${cliente}" action="/clientes/insere_cliente" method="post">
+<form class="card-body mx-auto formulario mt-5" style="width: 40rem;" th:object="${cliente}" th:action="@{/clientes/insere_cliente}" method="post">
     <div class="mb-3">
         <label class="form-label font-monospace" for="nomeCliente" th:text="#{nome.completo}">Nome completo</label>
         <input type="text" th:field="*{nome}" th:errorclass="is-invalid" class="form-control border border-secondary" id="nomeCliente" required>
