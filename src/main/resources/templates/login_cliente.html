@@ -1,41 +1,26 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="/css/savvyfix.css">
-  <link rel="icon" href="/images/ic_savvyfix.png" type="image/png">
 
-  <title>Login</title>
-</head>
-
+<head th:replace="~{fragmentos ::  conteudo-header('SavvyFix')}"> </head>
 <body>
-
-
+<nav th:replace="~{fragmentos :: cabecalho-login}"></nav>
+<div th:replace="~{fragmentos :: idioma}"></div>
 <!-- Realizar login do usuário registrado no banco -->
 
-<nav class="navbar navbar-expand-lg bg-body-tertiary cabecalho pb-3">
-  <a href="/"><img src="/images/ic_savvyfix.png" class="img-cabecalho"></a>
-</nav>
 <div class="ronded-pill titulo mx-auto mt-5">
   <h1 class="display-5 text-center pb-3 pt-3" >LOGIN</h1>
 </div>
-<form class="card-body mx-auto formulario mt-5" style="width: 40rem;" th:object="${cliente}" action="/clientes/logar_cliente" method="post">
+<form class="card-body mx-auto formulario mt-5" style="width: 40rem;" th:action="@{/clientes/login_cliente}" method="post">
   <div class="mb-3">
-    <label class="form-label" for="cpf">CPF: </label>
-    <input type="text" class="form-control border border-secondary" th:field="*{cpf}" id="cpf" aria-describedby="cpf" required>
+    <label class="form-label" for="username">CPF: </label>
+    <input type="text" class="form-control border border-secondary" id="username" name="username" aria-describedby="cpf" required>
     <div id="cpfHelp" class="form-text" th:text="#{aviso.cpf}">Digite apenas os números</div>
   </div>
   <div class="mb-3">
-    <label class="form-label font-monospace" for="SenhaClie" th:text="#{senha}">Senha:</label>
-    <input type="password" class="form-control border border-secondary" th:field="*{senha}" id="SenhaClie" required>
+    <label class="form-label font-monospace" for="password" th:text="#{senha}">Senha:</label>
+    <input type="password" class="form-control border border-secondary" id="password" name="password" required>
   </div>
-
-  <!-- Mensagem de erro genérica -->
-  <div class="alert alert-danger" th:if="${erro}" th:text="${erro}"></div>
 
   <button type="submit" class="btn btn-confirmar">Login</button>
   <a href="/" class="btn btn-danger ml-auto float-end" th:text="#{voltar}">Voltar</a>
@@ -44,11 +29,14 @@
   <a href="/clientes/cadastro_cliente" class="text-decoration-none" th:text="#{cadastre.se}">Cadastre-se aqui!</a>
 </div>
 
-<nav class="rodape">
-  <a href="https://github.com/LuizFFarias/challenge-JavaMVC-savvyfix.git"><img src="/images/ic_github.png"></a>
-  <a href="https://www.instagram.com"><img src="/images/ic_instagram.png"></a>
-  <a href="https://bsky.app"><img src="/images/ic_bluesky.png"></a>
-</nav>
+<div th:if="${param.erro}">
+  <p style="color: red"><span>Usuário ou senha incorretos</span></p>
+</div>
+<div th:if="${param.logout}">
+  <p style="color: green;"><span> Você saiu com sucesso</span></p>
+</div>
+
+<nav th:replace="~{fragmentos :: rodape}"></nav>
 <!-- Option 1: Bootstrap Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 </body>

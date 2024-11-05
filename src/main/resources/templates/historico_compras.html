@@ -1,21 +1,9 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="/css/savvyfix.css">
-    <link rel="icon" href="/images/ic_savvyfix.png" type="image/png">
-
-
-    <title>Histórico</title>
-</head>
+<head th:replace="~{fragmentos ::  conteudo-header('Histórico de Compras')}"> </head>
 <body>
-<nav class="navbar navbar-expand-lg bg-body-tertiary cabecalho pb-3">
-    <a href="/"><img src="/images/ic_savvyfix.png" class="img-cabecalho"></a>
-</nav>
+<nav th:replace="~{fragmentos :: cabecalho(cliente=${cliente})}"></nav>
+<div th:replace="~{fragmentos :: idioma}"></div>
 <div class="ronded-pill titulo mx-auto mt-5">
     <h1 class="d-flex justify-content-center display-4 pt-3 pb-3" th:text="#{sua.conta}">Sua Conta</h1>
 </div>
@@ -63,7 +51,8 @@
     <h1 class="d-flex justify-content-center display-4 pt-3 pb-3" th:text="#{historico}">Histórico</h1>
 </div>
 <!-- Busca das compras -->
-<div class="d-flex justify-content-center">
+<span th:if="${possuiCompras}">
+    <div class="d-flex justify-content-center">
     <div class="mb-3 produtos">
         <div class="row g-0 produto" th:each="item: ${compras}" >
             <div class="col-md-4">
@@ -89,12 +78,13 @@
             </div>
         </div>
     </div>
-</div>
+    </div>
+</span>
+<span th:if="${!possuiCompras}">
+    <p class="d-flex justify-content-center display-4 pt-3 pb-3" th:text="#{compra.nao_encontrada}"></p>
+</span>
+
 <a href="/" class="btn btn-comprar float-end m-4" th:text="#{voltar}">Voltar</a>
-<nav class="rodape">
-    <a href="https://github.com/LuizFFarias/challenge-JavaMVC-savvyfix.git"><img src="/images/ic_github.png"></a>
-    <a href="https://www.instagram.com"><img src="/images/ic_instagram.png"></a>
-    <a href="https://bsky.app"><img src="/images/ic_bluesky.png"></a>
-</nav>
+<nav th:replace="~{fragmentos :: rodape}"></nav>
 </body>
 </html>

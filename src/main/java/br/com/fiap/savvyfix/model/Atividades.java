@@ -27,9 +27,7 @@ import lombok.NoArgsConstructor;
 @Builder
 
 @Entity
-@Table(name = "Atividades", uniqueConstraints = {
-        @UniqueConstraint(name = "UK_CLIENTE_ATIVIDADES", columnNames = "ID_CLIENTE")
-})
+@Table(name = "Atividades")
 public class Atividades {
 
     @Id
@@ -73,4 +71,16 @@ public class Atividades {
     )
     @Valid
     private Cliente cliente;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(
+            name = "ID_PRODUTO",
+            referencedColumnName = "ID_PROD",
+            foreignKey = @ForeignKey(
+                name = "PRODUTO_ATIVIDADES_FK"
+            )
+    )
+
+    @Valid
+    private Produto produto;
 }

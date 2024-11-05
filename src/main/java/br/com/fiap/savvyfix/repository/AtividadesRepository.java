@@ -10,5 +10,6 @@ import java.util.List;
 @Repository
 public interface AtividadesRepository extends JpaRepository<Atividades, Long> {
     List<Atividades> findByClienteId(Long clienteId);
+    List<Atividades> findByProdutoId(Long produtoId);
     Atividades findFirstByClienteIdOrderByIdDesc(Long clierteId);
 }

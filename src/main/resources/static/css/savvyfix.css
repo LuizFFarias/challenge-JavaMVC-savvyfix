@@ -125,7 +125,13 @@
     height: 100%;
 }
 
+.preco-antigo{
+    text-decoration-color: red;
+}
 
+.preco-alterado{
+    font-size: larger;
+}
 
 @media (max-width: 680px) {
     .formulario{

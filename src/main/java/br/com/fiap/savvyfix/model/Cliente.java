@@ -1,18 +1,6 @@
 package br.com.fiap.savvyfix.model;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.ForeignKey;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
+import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -21,6 +9,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.br.CPF;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -49,7 +40,7 @@ public class Cliente {
     @Column(name = "CPF_CLIE", nullable = false, length = 11)
     private String cpf;
 
-    @Column(name = "SENHA_CLIE", nullable = false, length = 50 )
+    @Column(name = "SENHA_CLIE", nullable = false, length = 200 )
     @NotEmpty(message = "{cliente.senha.validar_vazio}")
     private  String senha;
 
@@ -63,4 +54,10 @@ public class Cliente {
     )
     @Valid
     private Endereco endereco;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "CLIENTE_ROLE",
+            joinColumns = @JoinColumn(name = "ID_CLIENTE"),
+            inverseJoinColumns = @JoinColumn(name = "ID_ROLE"))
+    private Set<Role> roles = new HashSet<>();
 }

@@ -2,6 +2,7 @@ package br.com.fiap.savvyfix.controller;
 
 
 import br.com.fiap.savvyfix.model.*;
+import br.com.fiap.savvyfix.repository.RoleRepository;
 import br.com.fiap.savvyfix.service.AtividadesService;
 import br.com.fiap.savvyfix.service.ClienteService;
 import br.com.fiap.savvyfix.service.CompraService;
@@ -9,12 +10,17 @@ import br.com.fiap.savvyfix.service.EnderecoService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Controller
@@ -34,15 +40,37 @@ public class ClienteController {
     @Autowired
     private CompraService serviceCpr;
 
+    @Autowired
+    private RoleRepository roleRepo;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @GetMapping("/cadastro_cliente")
     private ModelAndView save(){
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String cpf = auth.getName();
+
+        if(cpf != "anonymousUser"){
+            Cliente clienteLogado = service.findByCpf(cpf);
+            boolean isAdmin = clienteLogado.getRoles().stream()
+                    .anyMatch(role -> role.getNome().equals("ROLE_ADMIN"));
+            ModelAndView mv = new ModelAndView("cadastro_cliente");
+            mv.addObject("cliente", new Cliente());
+            mv.addObject("isadmin", isAdmin );
+            mv.addObject("roles", roleRepo.findAll());
+            return mv;
+
+        }
         ModelAndView mv = new ModelAndView("cadastro_cliente");
         mv.addObject("cliente", new Cliente());
+        mv.addObject("isadmin", false);
         return mv;
     }
 
     @PostMapping("/insere_cliente")
-    private ModelAndView save(@Valid Cliente cliente, BindingResult bd){
+    private ModelAndView save(@Valid Cliente cliente, BindingResult bd, Long id_role){
         if(bd.hasErrors()){
             ModelAndView mv = new ModelAndView("cadastro_cliente");
             return mv;
@@ -55,6 +83,9 @@ public class ClienteController {
             mv.addObject("erro", "CPF já cadastrado");
             return mv;
         }
+
+        cliente.setSenha(passwordEncoder.encode(cliente.getSenha()));
+
 
         Endereco endereco = cliente.getEndereco();
         if(endereco == null){
@@ -72,26 +103,10 @@ public class ClienteController {
     }
 
     @GetMapping("/login_cliente")
-    private ModelAndView login(){
-        ModelAndView mv = new ModelAndView("login_cliente");
-        mv.addObject("cliente", new Cliente());
-        return mv;
+    public String login(){
+
+        return "login_cliente";
     }
-
-    @PostMapping("/logar_cliente")
-    private ModelAndView logar(@RequestParam String cpf, @RequestParam String senha, HttpServletRequest request){
-            request.getSession().invalidate();
-
-            Cliente clieLogin = service.findByCpf(cpf);
-
-            if(clieLogin == null || !clieLogin.getSenha().equals(senha)){
-                return new ModelAndView("redirect:/clientes/login_cliente");
-
-            } else {
-                request.getSession().setAttribute("clienteLogado", clieLogin);
-                return new ModelAndView("redirect:/produtos");
-            }
-        }
 
     @GetMapping("/editar_cliente/{id}")
     public ModelAndView returnEditar(@PathVariable Long id) {
@@ -169,6 +184,11 @@ public class ClienteController {
         }
         return new ModelAndView("redirect:/");
 
+    }
+
+    @GetMapping("/acesso_negado")
+    public String retornaAcessoNegado(){
+        return("acesso_negado");
     }
 
 }

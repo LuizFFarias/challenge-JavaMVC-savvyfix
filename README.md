@@ -13,10 +13,55 @@
 
 <br>
 
-## Link com a aplicação
-https://youtu.be/raaqZxZKvw0?si=fR31e1fdPgVn-4D_
+## Link do vídeo da aplicação Java MVC
+https://youtu.be/DageQYzsqSo?si=6AdUCxAX2bccbJxu
+
+## Link do vídeo do Deploy via Azure Pipeline
+(link)
 
 <br>
+
+## Instruções testar a aplicação
+
+<p>Primeiramente inicie o projeto na sua IDE e vá em algum browser e busque o endereço: http://localhost:8080
+  
+![image](https://github.com/user-attachments/assets/e821f91b-6c7d-4a13-909c-139b1fdb16e8)
+
+<br>
+
+Faça o login com um usuário cadastrado
+
+![image](https://github.com/user-attachments/assets/e7b48947-e2fe-4195-a01b-e2e84615dd65)
+
+<br>
+
+Clique em "Ver Produtos"
+
+![image](https://github.com/user-attachments/assets/6abb5cf3-7eaa-4a63-beb4-1f4fa3cec7be)
+
+<br>
+
+Clique em comprar
+
+![image](https://github.com/user-attachments/assets/5501e58f-779b-4ec1-9ed6-37a44c782d92)
+
+<br>
+
+Escolha a quantidade e clique em "Finalizar Compra"
+
+![image](https://github.com/user-attachments/assets/5a0cf5ad-f4bd-4931-bf0d-86a67de0e684)
+
+<br>
+
+Aqui podemos ver o histórico de compras, agora ao comprar o mesmo produto novamente ele estará com 10% de desconto 
+por conta da precificação dinâmica
+
+![image](https://github.com/user-attachments/assets/8a9870d2-eadf-41a8-8d6e-230476473e64)
+
+Após realizar a nova compra podemos ver o histórico com as compras de valores diferentes
+
+![image](https://github.com/user-attachments/assets/d6f2a4f6-ffba-4572-9779-e5adb03b0442)
+</p>
 
 ## Diagrama de classes
 ![DiagramaDeClasses](https://github.com/user-attachments/assets/ec004b70-08e7-4c68-8690-d93a9d32ea48)
