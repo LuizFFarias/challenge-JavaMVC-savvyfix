@@ -17,7 +17,7 @@
 https://youtu.be/DageQYzsqSo?si=6AdUCxAX2bccbJxu
 
 ## Link do vídeo do Deploy via Azure Pipeline
-(link)
+https://youtu.be/A_BI4EeVzFk
 
 <br>
 
